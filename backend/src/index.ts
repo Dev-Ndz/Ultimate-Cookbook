@@ -1,10 +1,11 @@
 import express, { Express, Request, Response } from "express";
-import http from "http";
 import mongoose from "mongoose";
 import { DB_URI } from "./config/config";
 import cors from "cors";
 import { getRecipe } from "./controllers/recipeController";
 import { Recipe } from "./model/Recipe";
+
+import { login, register } from "./controllers/authController";
 
 const app = express();
 
@@ -19,9 +20,6 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-// app.use(express.static("public"));
-// app.use(express.urlencoded({ extended: true }));
-
 app.get("/", (req, res) => res.send({ coucou: "Hello World" }));
 app.get("/add-recipe", (req: Request, res: Response) => {
   const recipe = new Recipe({ content: "recipe", isGood: true });
@@ -32,3 +30,6 @@ app.get("/add-recipe", (req: Request, res: Response) => {
 });
 
 app.get("/recipe", getRecipe);
+
+app.use("/auth/register", register)
+app.use("/auth/login", login)
