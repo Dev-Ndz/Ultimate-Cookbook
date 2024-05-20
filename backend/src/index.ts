@@ -9,7 +9,7 @@ import { Recipe } from "./model/Recipe";
 const app = express();
 
 app.use(express.json());
-// app.use(cors);
+app.use(cors());
 
 mongoose
   .connect(DB_URI)
@@ -19,8 +19,8 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.static("public"));
+// app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => res.send({ coucou: "Hello World" }));
 app.get("/add-recipe", (req: Request, res: Response) => {
