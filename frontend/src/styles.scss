@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Lily+Script+One&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+:root{
+    --highlight1: rgba(124, 169, 130, 1);
+    --highlight2: rgba(193, 108, 44, 1);
+    --text-color: rgba(255, 255, 255, 1);
+    --bg-dark : rgba(42, 65, 72, 1);
+    --bg-mid : rgba(56, 94, 103, 1);
+    --bg-light : rgba(110, 142, 149, 1);
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:'Roboto';
+    color: var(--text-color)
+
+}
+body{
+    background-color: var(--bg-dark);
+}
+
+.row{
+    display:flex;
+    flex-direction: row;
+}
+
+.grow{
+    flex-grow:1;
+}
+
+.padding-05{
+    padding:0.5rem;
+}
+
+.gap-05{
+    gap:0.5rem;
+}
+
