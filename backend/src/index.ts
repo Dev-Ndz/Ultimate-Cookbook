@@ -31,5 +31,5 @@ app.get("/add-recipe", (req: Request, res: Response) => {
 
 app.get("/recipe", getRecipe);
 
-app.use("/auth/register", register)
-app.use("/auth/login", login)
+app.post("/auth/register", register)
+app.post("/auth/login", login)
