@@ -1,9 +1,10 @@
-<form (submit)="login($event)" class="column gap-2 full-center h100">
+<form (submit)="register($event)" class="column gap-2 full-center h100">
   <div class="column gap-05 full-center mb-2">
-    <h1>Log in</h1>
-    <p>No account yet ? go to <a routerLink="/register">register</a></p>
+    <h1>Register</h1>
+    <p>Already have an account ? go to <a routerLink="/login">login</a></p>
   </div>
   <div class="column gap-05">
+    <input type="text" name="name" placeholder="Name" [(ngModel)]="name" />
     <input type="email" name="email" placeholder="Email" [(ngModel)]="email" />
 
     <input
@@ -14,5 +15,5 @@
     />
   </div>
 
-  <button>Login</button>
+  <button>Register</button>
 </form>
