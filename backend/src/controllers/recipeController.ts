@@ -18,3 +18,14 @@ export const addRecipe = async (req: Request, res: Response) => {
     return res.status(500).send({ error: "Internal server error : " });
   }
 };
+
+export const getRecipeById = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    let recipe = await Recipe.findById(id);
+    res.send({ recipe });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error: "Internal server error : " });
+  }
+};
