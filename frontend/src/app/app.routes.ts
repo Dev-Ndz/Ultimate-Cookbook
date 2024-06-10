@@ -6,6 +6,7 @@ import { PlanningComponent } from './components/pages/planning/planning.componen
 import { LoginComponent } from './components/pages/login/login.component';
 import { authGuard } from './auth.guard';
 import { RegisterComponent } from './components/pages/register/register.component';
+import { RecipeComponent } from './components/pages/recipe/recipe.component';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,11 @@ export const routes: Routes = [
   {
     path: 'planning',
     component: PlanningComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'recipe/:id',
+    component: RecipeComponent,
     canActivate: [authGuard],
   },
   {

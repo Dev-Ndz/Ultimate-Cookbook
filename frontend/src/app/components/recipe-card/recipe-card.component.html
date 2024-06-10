@@ -1,6 +1,7 @@
-<div
+<a
   class="container bg-img column border-radius"
   [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
+  [routerLink]="['/recipe/' + recipe._id]"
 >
   <div class="grow"></div>
   <div class="row align-center space-between padding-1 fade">
@@ -10,4 +11,4 @@
       <app-add-to-planning />
     </div>
   </div>
-</div>
+</a>
