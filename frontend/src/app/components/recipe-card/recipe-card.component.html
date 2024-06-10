@@ -1,1 +1,13 @@
-<p>recipe-card works!</p>
+<div
+  class="container bg-img column border-radius"
+  [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
+>
+  <div class="grow"></div>
+  <div class="row align-center space-between padding-1 fade">
+    <h2>{{ recipe.title }}</h2>
+    <div class="row gap-1">
+      <app-add-to-list />
+      <app-add-to-planning />
+    </div>
+  </div>
+</div>

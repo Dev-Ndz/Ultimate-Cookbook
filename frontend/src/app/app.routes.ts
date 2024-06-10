@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { UserPageComponent } from './components/user-page/user-page.component';
-import { GroceryListComponent } from './components/grocery-list/grocery-list.component';
-import { PlanningComponent } from './components/planning/planning.component';
-import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/pages/home/home.component';
+import { UserPageComponent } from './components/pages/user-page/user-page.component';
+import { GroceryListComponent } from './components/pages/grocery-list/grocery-list.component';
+import { PlanningComponent } from './components/pages/planning/planning.component';
+import { LoginComponent } from './components/pages/login/login.component';
 import { authGuard } from './auth.guard';
-import { RegisterComponent } from './components/register/register.component';
+import { RegisterComponent } from './components/pages/register/register.component';
 
 export const routes: Routes = [
   {
