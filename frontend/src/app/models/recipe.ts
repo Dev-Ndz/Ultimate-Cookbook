@@ -4,7 +4,7 @@ export interface Recipe {
   author: string;
   content: string[];
   categories?: string[];
-  ingerdients: string[];
+  ingredients: string[];
   time?: number;
   image?: string;
   createdAt: string;

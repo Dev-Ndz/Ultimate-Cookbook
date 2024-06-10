@@ -56,6 +56,20 @@ a {
   }
 }
 
+li {
+  list-style-position: inside;
+}
+
+.arvo {
+  font-family: "Arvo";
+}
+
+// COLORS
+
+.bg-color-mid {
+  background-color: var(--bg-mid);
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -80,6 +94,14 @@ a {
 
 .padding-1 {
   padding: 1rem;
+}
+
+.mb-05 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
 }
 
 .gap-05 {
@@ -120,6 +142,13 @@ a {
 .disabled {
   pointer-events: none;
   opacity: 0.5;
+}
+
+.bg-img {
+  width: 100%;
+  aspect-ratio: 1;
+  background-position: center;
+  background-size: cover;
 }
 
 input {
