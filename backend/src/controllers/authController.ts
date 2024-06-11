@@ -1,10 +1,15 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { User } from "../model/User";
 import bcrypt from "bcrypt";
-import JWT from "jsonwebtoken";
+import JWT, { verify } from "jsonwebtoken";
 import { JWT_SECRET } from "../config/config";
+import { GroceryList } from "../model/GroceryList";
+import { Planning } from "../model/Planning";
+import { Household } from "../model/Household";
+import { AuthRequest } from "../model/types";
 
 export const register = async (req: Request, res: Response) => {
+  let newUser;
   const { name, email, password } = req.body;
   if (!email || !password || !name)
     return res
@@ -21,14 +26,34 @@ export const register = async (req: Request, res: Response) => {
 
   try {
     const encryptedPassword = await bcrypt.hash(password, 10);
-    await User.create({ name, email, password:encryptedPassword });
-    res.status(200).json({
-      message: " User created Successfully",
-      user: { name, email },
+    newUser = await User.create({
+      name,
+      email,
+      password: encryptedPassword,
     });
   } catch (error: any) {
-    console.log(error);
-    res.status(400).json({ message: error.message.toString() });
+    console.log("fail to create user", error);
+    return res.status(500).json({ message: error.message.toString() });
+  }
+
+  try {
+    let newGroceryList: any = await GroceryList.create({ ingredients: [] });
+    let newPlanning: any = await Planning.create({ planning: [] });
+    let newHousehold = await Household.create({
+      name: newUser.name + "'s household",
+      membersId: [newUser!._id],
+      groceryListId: newGroceryList._id,
+      planningId: newPlanning!._id,
+    });
+    newUser.householdId = newHousehold._id;
+    await newUser.save();
+
+    return res.status(200).json({
+      message: newUser.name + ", Your account is successfully created",
+    });
+  } catch (error: any) {
+    console.log("fail to create household", error);
+    return res.status(500).json({ message: error.message.toString() });
   }
 };
 
@@ -39,6 +64,7 @@ export const login = async (req: Request, res: Response) => {
 
   try {
     const user = await User.findOne({ email: email });
+    console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -48,10 +74,14 @@ export const login = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "wrong password" });
     }
 
-    const token = JWT.sign({ _id: user._id, email: user.email }, JWT_SECRET, {
-      algorithm: "HS512",
-      expiresIn: "1h",
-    });
+    const token = JWT.sign(
+      { _id: user._id, email: user.email, householdId: user.householdId },
+      JWT_SECRET,
+      {
+        algorithm: "HS512",
+        expiresIn: "1h",
+      }
+    );
 
     return res.status(200).json({
       message: "login success",
@@ -60,4 +90,21 @@ export const login = async (req: Request, res: Response) => {
   } catch (error: any) {
     return res.status(400).json({ message: error.message.toString() });
   }
+};
+
+export const bouncer = async (req: any, res: Response, next: NextFunction) => {
+  if (!req.headers.authorization) return res.status(401).send("Unauthorized");
+
+  try {
+    let decoded = verify(req.headers.authorization.split(" ")[1], JWT_SECRET);
+
+    if (decoded !== undefined) {
+      req.user = decoded;
+      return next();
+    }
+  } catch (err) {
+    console.log(err);
+  }
+
+  return res.status(403).send("Invalid token");
 };

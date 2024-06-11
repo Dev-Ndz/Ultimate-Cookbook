@@ -7,9 +7,9 @@ import {
   getRecipes,
   getRecipeById,
 } from "./controllers/recipeController";
-import { Recipe } from "./model/Recipe";
+import { getGroceryList } from "./controllers/groceryListController";
 
-import { login, register } from "./controllers/authController";
+import { bouncer, login, register } from "./controllers/authController";
 
 const app = express();
 
@@ -24,11 +24,14 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.get("/", (req, res) => res.send({ coucou: "Hello World" }));
+app.post("/auth/register", register);
+app.post("/auth/login", login);
 
+app.use(bouncer);
+
+app.get("/grocery-list", getGroceryList);
 app.get("/recipe/:id", getRecipeById);
 app.get("/recipe", getRecipes);
 app.post("/add-recipe", addRecipe);
 
-app.post("/auth/register", register);
-app.post("/auth/login", login);
+app.get("/grocery-list", getGroceryList);
