@@ -36,7 +36,6 @@ export class RegisterComponent {
         next: (data) => {
           this.validationMessage = data.message;
           setTimeout(() => {
-            console.log('redirecting from register');
             this.router.navigate(['/login']);
           }, 1500);
         },
