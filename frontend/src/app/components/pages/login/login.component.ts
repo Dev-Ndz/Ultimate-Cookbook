@@ -31,6 +31,7 @@ export class LoginComponent {
         })
       )
       .subscribe(() => {
+        console.log('redirecting from login');
         this.router.navigate(['/']);
       });
   };

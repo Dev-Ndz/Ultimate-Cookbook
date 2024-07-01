@@ -40,6 +40,10 @@ export class AuthService {
   }
 
   isLoggedIn() {
+    console.log(
+      'Checking if user is logged In...',
+      !!localStorage.getItem('JWT_TOKEN')
+    );
     return !!localStorage.getItem('JWT_TOKEN');
   }
 

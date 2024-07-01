@@ -35,9 +35,10 @@ export class RegisterComponent {
       .subscribe({
         next: (data) => {
           this.validationMessage = data.message;
-          setInterval(() => {
+          setTimeout(() => {
+            console.log('redirecting from register');
             this.router.navigate(['/login']);
-          }, 2000);
+          }, 1500);
         },
         error: (error: HttpErrorResponse) => {
           console.log(error);

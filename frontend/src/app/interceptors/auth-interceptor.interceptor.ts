@@ -24,6 +24,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       if (e.status === 401 || e.status === 403) {
         // This would do the navigation
         authService.logout();
+        console.log('redirecting from interceptor');
         router.navigate(['/login']);
       }
       return throwError(() => e);
