@@ -1,12 +1,19 @@
-<div class="column">
+<div class="column gap-05 padding-1">
   <input id="title" type="text" [(ngModel)]="recipe.title" />
 
   <input id="time" type="text" [(ngModel)]="recipe.time" />
-  <!-- content: string[];
-    categories?: string[];
-    ingredients?: ingredient[];
-    time?: number;
-    image?: string; -->
-
+  <h2>Ingredients</h2>
+  <app-ingredient
+    *ngFor="let ingredient of recipe.ingredients"
+    [ingredient]="ingredient"
+    [isActive]="true"
+    (ingredientChange)="handleIngredientChange($event)"
+  />
+  <h2>Recipe</h2>
+  <input
+    *ngFor="let step of recipe.content"
+    type="text"
+    [(ngModel)]="recipe.content"
+  />
   <button class="text" (click)="save()">save</button>
 </div>

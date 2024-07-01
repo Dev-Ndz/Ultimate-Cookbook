@@ -6,11 +6,13 @@ import { HttpClient } from '@angular/common/http';
 import { IngredientModel } from '../../../models/ingredient.model';
 import { RecipeModel } from '../../../models/recipe.model';
 import { ingredient } from '../../../models/ingredient.interface';
+import { CommonModule } from '@angular/common';
+import { IngredientComponent } from '../../ingredient/ingredient.component';
 
 @Component({
   selector: 'app-edit-recipe',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, IngredientComponent],
   templateUrl: './edit-recipe.component.html',
   styleUrl: './edit-recipe.component.scss',
 })
@@ -44,6 +46,11 @@ export class EditRecipeComponent {
 
   save(): void {
     console.log(this.recipe);
+  }
+
+  handleIngredientChange(updatedIngredient: ingredient) {
+    console.log('Ingredient changed:', updatedIngredient);
+    // Additional logic to handle ingredient changes
   }
 
   ngOnInit() {

@@ -1,0 +1,11 @@
+<div *ngIf="isActive" class="row gap-05">
+    <input type="text" [(ngModel)]="ingredient.quantity" size="2" (ngModelChange)="onIngredientChange()"/>
+    <input type="text" [(ngModel)]="ingredient.unit" size="10" (ngModelChange)="onIngredientChange()"/>
+    <input type="text" [(ngModel)]="ingredient.name" class="grow" (ngModelChange)="onIngredientChange()"/>
+</div>
+
+<div *ngIf="!isActive">
+  <p>
+    {{ ingredient.quantity + " " + ingredient.unit + " " + ingredient.name }}
+  </p>
+</div>
