@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user';
 import { tap } from 'rxjs';
 
 @Injectable({
@@ -8,6 +7,23 @@ import { tap } from 'rxjs';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
+
+  register(name: string, email: string, password: string) {
+    return this.http
+      .post(
+        'https://ultimate-cookbook-8beb64e72401.herokuapp.com/auth/register',
+        {
+          name,
+          email,
+          password,
+        }
+      )
+      .pipe(
+        tap((data: any) => {
+          localStorage.setItem('JWT_TOKEN', data.token);
+        })
+      );
+  }
 
   login(email: string, password: string) {
     return this.http
@@ -18,6 +34,7 @@ export class AuthService {
       .pipe(
         tap((data: any) => {
           localStorage.setItem('JWT_TOKEN', data.token);
+          console.log(data);
         })
       );
   }
@@ -26,17 +43,11 @@ export class AuthService {
     return !!localStorage.getItem('JWT_TOKEN');
   }
 
-  register(name: string, email: string, password: string) {
-    return this.http
-      .post('https://ultimate-cookbook-8beb64e72401.herokuapp.com/auth/login', {
-        name,
-        email,
-        password,
-      })
-      .pipe(
-        tap((data: any) => {
-          localStorage.setItem('JWT_TOKEN', data.token);
-        })
-      );
+  logout(): void {
+    localStorage.removeItem('JWT_TOKEN');
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('JWT_TOKEN');
   }
 }

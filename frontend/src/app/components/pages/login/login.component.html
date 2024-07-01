@@ -1,18 +1,28 @@
-<form (submit)="login($event)" class="column gap-2 full-center h100">
-  <div class="column gap-05 full-center mb-2">
-    <h1>Log in</h1>
+<div class="full-center h100">
+  <form (submit)="login($event)" class="column gap-2 wrapper grow padding-1">
+    <div class="column gap-05 full-center mb-2">
+      <h1>Log in</h1>
+    </div>
+    <div *ngIf="errorMessage" class="error message">
+      {{ errorMessage }}
+    </div>
+    <div class="column gap-1">
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        [(ngModel)]="email"
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+      />
+    </div>
+
+    <button class="text">Login</button>
     <p>No account yet ? go to <a routerLink="/register">register</a></p>
-  </div>
-  <div class="column gap-05">
-    <input type="email" name="email" placeholder="Email" [(ngModel)]="email" />
-
-    <input
-      type="password"
-      name="password"
-      placeholder="Password"
-      [(ngModel)]="password"
-    />
-  </div>
-
-  <button class="text">Login</button>
-</form>
+  </form>
+</div>

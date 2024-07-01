@@ -12,14 +12,11 @@ export const register = async (req: Request, res: Response) => {
   let newUser;
   const { name, email, password } = req.body;
   if (!email || !password || !name)
-    return res
-      .status(400)
-      .send({ error: "Invalid request : missing email, password or name" });
+    return res.status(400).json({ message: "missing email, password or name" });
 
   const isEmailAllReadyExist = await User.findOne({ email: email });
   if (isEmailAllReadyExist) {
     return res.status(400).json({
-      status: 400,
       message: "Email all ready in use",
     });
   }

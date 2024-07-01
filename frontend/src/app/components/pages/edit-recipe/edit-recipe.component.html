@@ -1,0 +1,12 @@
+<div class="column">
+  <input id="title" type="text" [(ngModel)]="recipe.title" />
+
+  <input id="time" type="text" [(ngModel)]="recipe.time" />
+  <!-- content: string[];
+    categories?: string[];
+    ingredients?: ingredient[];
+    time?: number;
+    image?: string; -->
+
+  <button class="text" (click)="save()">save</button>
+</div>

@@ -131,6 +131,7 @@ li {
 }
 
 .full-center {
+  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -185,4 +186,17 @@ button {
       height: 2.5rem;
     }
   }
+}
+
+.message {
+  color: white;
+  padding: 25px;
+  border-radius: 8px;
+  text-align: center;
+}
+.error {
+  background-color: rgba(255, 59, 59, 0.5);
+}
+.confirmation {
+  background-color: rgb(81, 175, 53);
 }

@@ -1,7 +1,14 @@
-<form (submit)="register($event)" class="column gap-2 full-center h100">
+<div class="full-center h100">
+<form (submit)="register($event)" class="column gap-2 wrapper grow padding-1">
   <div class="column gap-05 full-center mb-2">
     <h1>Register</h1>
     <p>Already have an account ? go to <a routerLink="/login">login</a></p>
+  </div>
+  <div *ngIf="errorMessage" class="message error">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="validationMessage" class="confirmation message">
+    {{ validationMessage }}
   </div>
   <div class="column gap-05">
     <input type="text" name="name" placeholder="Name" [(ngModel)]="name" />
@@ -17,3 +24,4 @@
 
   <button class="text">Register</button>
 </form>
+</div>

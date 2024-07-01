@@ -7,7 +7,7 @@ import {
   getRecipes,
   getRecipeById,
 } from "./controllers/recipeController";
-import { getGroceryList } from "./controllers/groceryListController";
+import { addItem, getGroceryList } from "./controllers/groceryListController";
 
 import { bouncer, login, register } from "./controllers/authController";
 
@@ -35,3 +35,4 @@ app.get("/recipe", getRecipes);
 app.post("/add-recipe", addRecipe);
 
 app.get("/grocery-list", getGroceryList);
+app.post("/grocery-list", addItem);

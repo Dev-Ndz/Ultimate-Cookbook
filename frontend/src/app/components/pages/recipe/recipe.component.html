@@ -1,4 +1,5 @@
-<div
+<div class="container">
+  <div
   class="bg-img"
   [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
 ></div>
@@ -11,13 +12,15 @@
   <div class="row space-between mb-1">
     <app-add-to-list />
     <app-add-to-planning />
-    <button class="icon"><img src="./assets/icons/edit.svg" alt="" /></button>
+    <button class="icon" [routerLink]="['/recipe/edit/' + recipe._id]">
+      <img src="./assets/icons/edit.svg" alt="" />
+    </button>
   </div>
   <section class="padding-05 border-radius bg-color-mid mb-1">
     <h2 class="mb-05">Ingredients</h2>
     <ul>
       <li *ngFor="let ingredient of recipe.ingredients">
-        {{ ingredient }}
+        {{ ingredient.toString() }}
       </li>
     </ul>
   </section>
@@ -40,4 +43,6 @@
     <h2 class="mb-05">Comments</h2>
     todo
   </section>
+</div>
+
 </div>
