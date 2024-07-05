@@ -6,6 +6,7 @@ import {
   addRecipe,
   getRecipes,
   getRecipeById,
+  updateRecipe,
 } from "./controllers/recipeController";
 import { addItem, getGroceryList } from "./controllers/groceryListController";
 
@@ -33,6 +34,7 @@ app.get("/grocery-list", getGroceryList);
 app.get("/recipe/:id", getRecipeById);
 app.get("/recipe", getRecipes);
 app.post("/add-recipe", addRecipe);
+app.put("/recipe/:id", updateRecipe);
 
 app.get("/grocery-list", getGroceryList);
 app.post("/grocery-list", addItem);

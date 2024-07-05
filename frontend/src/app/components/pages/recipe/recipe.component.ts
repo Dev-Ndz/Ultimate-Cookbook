@@ -8,6 +8,8 @@ import { AddToListComponent } from '../../buttons/add-to-list/add-to-list.compon
 import { AddToPlanningComponent } from '../../buttons/add-to-planning/add-to-planning.component';
 import { RecipeModel } from '../../../models/recipe.model';
 import { IngredientModel } from '../../../models/ingredient.model';
+import { RecipeService } from '../../../services/recipe.service';
+import { Unit } from '../../../models/unit.enum';
 
 @Component({
   selector: 'app-recipe',
@@ -22,49 +24,31 @@ import { IngredientModel } from '../../../models/ingredient.model';
   styleUrl: './recipe.component.scss',
 })
 export class RecipeComponent {
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
-
   recipe!: Recipe;
+  id!: string;
 
-  getRecipe(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.http
-      .get('https://ultimate-cookbook-8beb64e72401.herokuapp.com/recipe/' + id)
-      .subscribe({
-        next: (response: any) => {
-          console.log(response);
+  constructor(
+    private route: ActivatedRoute,
+    private recipeService: RecipeService
+  ) {}
 
-          // Map ingredients to IngredientModel instances
-          const ingredients = response.recipe.ingredients.map(
-            (ingredient: ingredient) =>
-              new IngredientModel(
-                ingredient.quantity,
-                ingredient.name,
-                ingredient.unit
-              )
-          );
-
-          // Create a RecipeModel instance
-          this.recipe = new RecipeModel(
-            response.recipe._id,
-            response.recipe.title,
-            response.recipe.author,
-            response.recipe.content,
-            ingredients,
-            response.recipe.createdAt,
-            response.recipe.updatedAt,
-            response.recipe.categories,
-            response.recipe.time,
-            response.recipe.image
-          );
+  getRecipe(id: string): void {
+    if (this.id) {
+      this.recipeService.getRecipeById(id).subscribe({
+        next: (recipe: any) => {
+          this.recipe = new RecipeModel(recipe);
         },
         error: (error) => {
           console.log(error);
         },
       });
+    }
   }
 
   ngOnInit() {
-    this.getRecipe();
+    this.route.params.subscribe((params) => {
+      this.id = params['id'];
+    });
+    this.getRecipe(this.id);
   }
 }

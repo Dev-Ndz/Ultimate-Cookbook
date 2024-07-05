@@ -3,6 +3,7 @@ import { IngredientModel } from '../../models/ingredient.model';
 import { ingredient } from '../../models/ingredient.interface';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Unit } from '../../models/unit.enum';
 
 @Component({
   selector: 'app-ingredient',
@@ -15,8 +16,23 @@ export class IngredientComponent {
   @Input() ingredient!: ingredient;
   @Input() isActive!: boolean;
   @Output() ingredientChange = new EventEmitter<ingredient>();
+  @Output() delete = new EventEmitter<number>();
+  units = Object.values(Unit);
+
+  deleteIngredient(){
+    this.delete.emit();
+  }
 
   onIngredientChange() {
     this.ingredientChange.emit(this.ingredient);
+  }
+
+  ngOnInit() {
+    this.ingredient = new IngredientModel(
+      this.ingredient.quantity,
+      this.ingredient.name,
+      this.ingredient.unit
+    );
+
   }
 }

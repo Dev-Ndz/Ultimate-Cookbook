@@ -3,7 +3,7 @@ import { Unit } from './unit.enum';
 export interface ingredient {
   quantity: number;
   name: string;
-  unit: string;
+  unit: Unit;
 
   toString(): string;
 }

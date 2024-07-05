@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RecipeCardComponent } from '../../recipe-card/recipe-card.component';
 import { Recipe } from '../../../models/recipe';
 import { CommonModule } from '@angular/common';
+import { RecipeService } from '../../../services/recipe.service';
 
 @Component({
   selector: 'app-home',
@@ -12,17 +12,15 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor(private http: HttpClient) {}
+  constructor(private recipeService: RecipeService) {}
 
   recipes: Recipe[] = [];
 
   getRecipes = () => {
-    this.http
-      .get('https://ultimate-cookbook-8beb64e72401.herokuapp.com/recipe')
-      .subscribe({
-        next: (data: any) => (this.recipes = data),
-        error: (err) => console.log(err),
-      });
+    this.recipeService.getRecipes().subscribe({
+      next: (data: any) => (this.recipes = data),
+      error: (err) => console.log(err),
+    });
   };
 
   ngOnInit() {

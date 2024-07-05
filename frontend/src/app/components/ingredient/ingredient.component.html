@@ -1,11 +1,29 @@
-<div *ngIf="isActive" class="row gap-05">
-    <input type="text" [(ngModel)]="ingredient.quantity" size="2" (ngModelChange)="onIngredientChange()"/>
-    <input type="text" [(ngModel)]="ingredient.unit" size="10" (ngModelChange)="onIngredientChange()"/>
-    <input type="text" [(ngModel)]="ingredient.name" class="grow" (ngModelChange)="onIngredientChange()"/>
+<div *ngIf="isActive" class="row gap-05 align-center">
+  <input
+    type="text"
+    [(ngModel)]="ingredient.quantity"
+    size="2"
+    (ngModelChange)="onIngredientChange()"
+  />
+
+  <select [(ngModel)]="ingredient.unit" (ngModelChange)="onIngredientChange()">
+    <option *ngFor="let unit of units" [value]="unit">{{ unit }}</option>
+  </select>
+
+  <input
+    type="text"
+    [(ngModel)]="ingredient.name"
+    class="grow"
+    size="1"
+    (ngModelChange)="onIngredientChange()"
+  />
+  <button class="mini no-bg" (click)="deleteIngredient()">
+    <img src="./assets/icons/trash.svg" alt="" />
+  </button>
 </div>
 
 <div *ngIf="!isActive">
   <p>
-    {{ ingredient.quantity + " " + ingredient.unit + " " + ingredient.name }}
+    {{ ingredient.toString() }}
   </p>
 </div>

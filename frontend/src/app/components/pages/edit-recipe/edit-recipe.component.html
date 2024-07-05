@@ -1,19 +1,43 @@
+<div
+  class="bg-img"
+  [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
+></div>
 <div class="column gap-05 padding-1">
-  <input id="title" type="text" [(ngModel)]="recipe.title" />
+  <div class="row gap-05 align-center">
+    <input
+      id="title"
+      type="text"
+      [(ngModel)]="recipe.title"
+      class="title grow"
+      size="2"
+    />
+    <input id="time" type="text" [(ngModel)]="recipe.time" size="2" />
+    min.
+  </div>
+  <div class="mb-1">CATEGORY</div>
+  <div class="row align-center space-between">
+    <h2>Ingredients</h2>
+    <button (click)="addIngredient()" class="mini">+</button>
+  </div>
 
-  <input id="time" type="text" [(ngModel)]="recipe.time" />
-  <h2>Ingredients</h2>
   <app-ingredient
-    *ngFor="let ingredient of recipe.ingredients"
+    *ngFor="
+      let ingredient of recipe.ingredients;
+      let i = index;
+      trackBy: trackByFn
+    "
     [ingredient]="ingredient"
     [isActive]="true"
-    (ingredientChange)="handleIngredientChange($event)"
+    (ingredientChange)="handleIngredientChange(i, $event)"
+    (delete)="deleteIngredient(i)"
   />
   <h2>Recipe</h2>
+
   <input
-    *ngFor="let step of recipe.content"
-    type="text"
-    [(ngModel)]="recipe.content"
+    *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
+    [(ngModel)]="recipe.content[i]"
+    [ngModelOptions]="{ standalone: true }"
   />
+
   <button class="text" (click)="save()">save</button>
 </div>

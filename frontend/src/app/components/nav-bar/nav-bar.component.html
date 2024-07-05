@@ -3,9 +3,13 @@
     <img class="home icon" src="./assets/icons/logo.svg" />
     <div class="name">The Ultimate Cookbook</div>
   </a>
-  <div class ="grow"></div>
+  <div class="grow full-center">
+    {{ devMode }}
+  </div>
   <nav class="row gap-05">
-    <a [routerLink]="['/user']"><img src="./assets/icons/user.svg" alt="user profile" /></a>
+    <a [routerLink]="['/user']"
+      ><img src="./assets/icons/user.svg" alt="user profile"
+    /></a>
     <a [routerLink]="['/list']"
       ><img src="./assets/icons/list.svg" alt="link to grocery list"
     /></a>

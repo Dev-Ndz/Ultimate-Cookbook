@@ -4,15 +4,16 @@ import { Unit } from './unit.enum';
 export class IngredientModel implements ingredient {
   quantity: number;
   name: string;
-  unit: string;
+  unit: Unit;
 
-  constructor(quantity: number, name: string, unit: string) {
+  constructor(quantity: number, name: string, unit: Unit) {
     this.quantity = quantity;
     this.name = name;
     this.unit = unit;
   }
 
   toString(): string {
-    return this.quantity + ' ' + this.name + ' ' + this.unit ;
+    let displayedUnit = this.unit == Unit.Piece ? '' : this.unit;
+    return this.quantity + ' ' + displayedUnit + ' ' + this.name;
   }
 }

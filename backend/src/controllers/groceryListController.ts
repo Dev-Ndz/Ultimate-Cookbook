@@ -3,7 +3,6 @@ import { getGroceryListId } from "./householdController";
 import { Request, Response } from "express";
 
 export const getGroceryList = async (req: any, res: Response) => {
-  console.log("coucou");
 
   return res.send({ message: "coucou" });
 
