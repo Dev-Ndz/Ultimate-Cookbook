@@ -20,24 +20,58 @@
     <button (click)="addIngredient()" class="mini">+</button>
   </div>
 
-  <app-ingredient
-    *ngFor="
-      let ingredient of recipe.ingredients;
-      let i = index;
-      trackBy: trackByFn
-    "
-    [ingredient]="ingredient"
-    [isActive]="true"
-    (ingredientChange)="handleIngredientChange(i, $event)"
-    (delete)="deleteIngredient(i)"
-  />
-  <h2>Recipe</h2>
+  <div class="column gap-05 mb-1">
+    <app-ingredient
+      *ngFor="
+        let ingredient of recipe.ingredients;
+        let i = index;
+        trackBy: trackByFn
+      "
+      [ingredient]="ingredient"
+      [isActive]="true"
+      (ingredientChange)="handleIngredientChange(i, $event)"
+      (delete)="deleteIngredient(i)"
+    />
+  </div>
 
-  <input
-    *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
-    [(ngModel)]="recipe.content[i]"
-    [ngModelOptions]="{ standalone: true }"
-  />
+  <div class="row align-center space-between">
+    <h2>Recipe</h2>
+    <button (click)="addStep()" class="mini">+</button>
+  </div>
+  <div *ngIf="recipe.content.length > 1" class="column gap-05">
+    <div
+      *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
+      class="column"
+    >
+      <div class="space-between row align-center">
+        <p>{{ "STEP " + (i + 1) }}</p>
+        <button class="mini no-bg" (click)="deleteStep(i)">
+          <img src="./assets/icons/trash.svg" alt="trash icon" />
+        </button>
+      </div>
+
+      <textarea
+        [(ngModel)]="recipe.content[i]"
+        [ngModelOptions]="{ standalone: true }"
+        rows="5"
+        >{{ recipe.content[i] }}</textarea
+      >
+    </div>
+  </div>
+
+  <div *ngIf="recipe.content.length < 2">
+    <div
+      *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
+      class="column"
+    >
+      <textarea
+        [(ngModel)]="recipe.content[i]"
+        [ngModelOptions]="{ standalone: true }"
+        rows="5"
+        >{{ recipe.content[i] }}</textarea
+      >
+    </div>
+  </div>
 
   <button class="text" (click)="save()">save</button>
 </div>

@@ -27,11 +27,16 @@
 
     <section class="padding-05 border-radius bg-color-mid mb-1">
       <h2 class="mb-05">Instructions</h2>
-      <ol>
-        <li *ngFor="let instruction of recipe.content">
-          {{ instruction }}
-        </li>
-      </ol>
+      <div *ngIf="recipe.content.length > 1">
+        <ol>
+          <li *ngFor="let instruction of recipe.content">
+            {{ instruction }}
+          </li>
+        </ol>
+      </div>
+      <div *ngIf="recipe.content.length == 1">
+        {{ recipe.content }}
+      </div>
     </section>
 
     <section class="padding-05 border-radius bg-color-mid mb-1">
