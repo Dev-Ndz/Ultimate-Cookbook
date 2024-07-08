@@ -150,16 +150,22 @@ li {
 }
 
 input,
-select {
+select,
+textarea {
   background-color: var(--bg-mid);
   border: none;
   color: var(--text-color);
-  height: 2rem;
   padding: 0.5rem;
+  font-size: 1rem;
   &:focus {
     outline: 1px solid var(--text-color);
     background-color: var(--bg-light);
   }
+}
+
+input,
+select {
+  height: 2rem;
 }
 
 button {
