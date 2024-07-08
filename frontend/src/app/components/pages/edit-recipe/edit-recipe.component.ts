@@ -9,6 +9,7 @@ import { IngredientComponent } from '../../ingredient/ingredient.component';
 import { RecipeService } from '../../../services/recipe.service';
 import { IngredientModel } from '../../../models/ingredient.model';
 import { Unit } from '../../../models/unit.enum';
+import { ImagesService } from '../../../services/images.service';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -25,11 +26,14 @@ export class EditRecipeComponent {
     ingredients: [new IngredientModel(0, '', Unit.Piece)],
   };
   id = this.route.snapshot.paramMap.get('id');
+  selectedFile: File | null = null;
+  formData: FormData = new FormData();
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private imageService: ImagesService
   ) {}
 
   getRecipe(): void {
@@ -47,6 +51,17 @@ export class EditRecipeComponent {
   }
 
   save(): void {
+    if (this.selectedFile) {
+      this.formData.append('image', this.selectedFile, this.selectedFile.name);
+      this.imageService.uploadImage(this.formData).subscribe({
+        next: (response: any) => {
+          this.recipe.image = response.path;
+        },
+        error: (err: any) => {
+          console.log(err);
+        },
+      });
+    }
     if (this.id) {
       this.recipeService.editRecipe(this.id, this.recipe).subscribe({
         next: (response: any) => {
@@ -58,6 +73,21 @@ export class EditRecipeComponent {
       });
     }
   }
+
+  // sendFormData(url: string) {
+  //   console.log("sending data");
+  //   this.http.post(url, this.formData).subscribe({
+  //     next: (data: any) => {
+  //       console.log("article posted:", data);
+  //       this.message = "Blog post created successfullyn!";
+  //       this.router.navigate(["post/", data.data.id]);
+  //     },
+  //     error: (err) => {
+  //       console.log(err);
+  //       this.message = "An error occurred. Please try again.";
+  //     },
+  //   });
+  // }
 
   handleIngredientChange(index: number, updatedIngredient: ingredient) {
     console.log('Ingredient changed:', updatedIngredient, index);
@@ -79,6 +109,15 @@ export class EditRecipeComponent {
 
   trackByFn(index: any, item: any) {
     return index;
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      const imgSrc = URL.createObjectURL(this.selectedFile);
+      this.recipe.image = imgSrc;
+    }
   }
 
   ngOnInit() {
