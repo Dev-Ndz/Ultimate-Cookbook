@@ -10,11 +10,20 @@ import { RecipeService } from '../../../services/recipe.service';
 import { IngredientModel } from '../../../models/ingredient.model';
 import { Unit } from '../../../models/unit.enum';
 import { ImagesService } from '../../../services/images.service';
+import { DialogModule } from 'primeng/dialog';
+import { NoopAnimationPlayer } from '@angular/animations';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-edit-recipe',
   standalone: true,
-  imports: [FormsModule, CommonModule, IngredientComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    IngredientComponent,
+    DialogModule,
+    ButtonModule,
+  ],
   templateUrl: './edit-recipe.component.html',
   styleUrl: './edit-recipe.component.scss',
 })
@@ -28,6 +37,7 @@ export class EditRecipeComponent {
   id = this.route.snapshot.paramMap.get('id');
   selectedFile: File | null = null;
   formData: FormData = new FormData();
+  visible: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,57 +47,63 @@ export class EditRecipeComponent {
   ) {}
 
   getRecipe(): void {
-    if (this.id) {
-      this.isEditMode = true;
-      this.recipeService.getRecipeById(this.id).subscribe({
-        next: (response: any) => {
-          this.recipe = new RecipeModel(response);
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
-    }
+    this.isEditMode = true;
+    this.recipeService.getRecipeById(this.id!).subscribe({
+      next: (response: any) => {
+        this.recipe = new RecipeModel(response);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
   }
-
-  save(): void {
+  showDialog() {
+    this.visible = true;
+  }
+  onSave(): void {
     if (this.selectedFile) {
       this.formData.append('image', this.selectedFile, this.selectedFile.name);
       this.imageService.uploadImage(this.formData).subscribe({
         next: (response: any) => {
           this.recipe.image = response.path;
+          console.log(
+            'PICTURE UPLOADED TO : ',
+            response.path,
+            'RECIPE IMAGE URL: ',
+            this.recipe.image
+          );
+          this.updateRecipe();
         },
         error: (err: any) => {
           console.log(err);
         },
       });
-    }
-    if (this.id) {
-      this.recipeService.editRecipe(this.id, this.recipe).subscribe({
-        next: (response: any) => {
-          this.router.navigate(['recipe/' + this.id]);
-        },
-        error: (error) => {
-          console.log('ERROR', error);
-        },
-      });
+    } else {
+      this.updateRecipe;
     }
   }
 
-  // sendFormData(url: string) {
-  //   console.log("sending data");
-  //   this.http.post(url, this.formData).subscribe({
-  //     next: (data: any) => {
-  //       console.log("article posted:", data);
-  //       this.message = "Blog post created successfullyn!";
-  //       this.router.navigate(["post/", data.data.id]);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //       this.message = "An error occurred. Please try again.";
-  //     },
-  //   });
-  // }
+  updateRecipe(): void {
+    console.log('sending edited recipe', this.recipe);
+    this.recipeService.editRecipe(this.id!, this.recipe).subscribe({
+      next: (response: any) => {
+        this.router.navigate(['recipe/' + this.id]);
+      },
+      error: (error) => {
+        console.log('ERROR', error);
+      },
+    });
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      const imgSrc = URL.createObjectURL(this.selectedFile);
+      this.recipe.image = imgSrc;
+      console.log('image changed after file selected : ', this.recipe);
+    }
+  }
 
   handleIngredientChange(index: number, updatedIngredient: ingredient) {
     console.log('Ingredient changed:', updatedIngredient, index);
@@ -109,15 +125,6 @@ export class EditRecipeComponent {
 
   trackByFn(index: any, item: any) {
     return index;
-  }
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      const imgSrc = URL.createObjectURL(this.selectedFile);
-      this.recipe.image = imgSrc;
-    }
   }
 
   ngOnInit() {

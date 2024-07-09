@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="recipe">
   <div
     class="bg-img"
     [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"

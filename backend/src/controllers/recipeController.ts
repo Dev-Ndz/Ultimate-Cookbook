@@ -41,3 +41,16 @@ export const updateRecipe = async (req: Request, res: Response) => {
     return res.status(500).send({ error: "Server error : " + err });
   }
 };
+
+// export const updateRecipeFD = async (req: Request, res: Response) => {
+//   const id = req.params.id;
+//   const recipe = req.body;
+//   console.log(req.body);
+//   console.log("update recipe :", id, recipe);
+//   try {
+//     res.send({ message: "recipe updated :" + recipe.name });
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).send({ error: "Server error : " + err });
+//   }
+// };

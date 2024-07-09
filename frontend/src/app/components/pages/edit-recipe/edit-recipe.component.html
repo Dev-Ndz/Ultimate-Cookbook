@@ -1,79 +1,113 @@
-<div
-  class="bg-img"
-  [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
+<!-- <p-dialog
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '25rem' }"
+> -->
+<p-dialog
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible"
 >
-  <input type="file" name="image" (change)="onFileSelected($event)" />
-</div>
-<div class="column gap-05 padding-1">
-  <div class="row gap-05 align-center">
-    <input
-      id="title"
-      type="text"
-      [(ngModel)]="recipe.title"
-      class="title grow"
-      size="2"
-    />
-    <input id="time" type="text" [(ngModel)]="recipe.time" size="2" />
-    min.
+  <span class="p-text-secondary block mb-5">Update your information.</span>
+  <div class="flex align-items-center gap-3 mb-3">
+    <label for="username" class="font-semibold w-6rem">Username</label>
+    <input pInputText id="username" class="flex-auto" autocomplete="off" />
   </div>
-  <div class="mb-1">CATEGORY</div>
-  <div class="row align-center space-between">
-    <h2>Ingredients</h2>
-    <button (click)="addIngredient()" class="mini">+</button>
+  <div class="flex align-items-center gap-3 mb-5">
+    <label for="email" class="font-semibold w-6rem">Email</label>
+    <input pInputText id="email" class="flex-auto" autocomplete="off" />
   </div>
+  <div class="flex justify-content-end gap-2">
+    <button
+      label="Cancel"
+      severity="secondary"
+      (click)="visible = false"
+    ></button>
+  </div>
+</p-dialog>
 
-  <div class="column gap-05 mb-1">
-    <app-ingredient
-      *ngFor="
-        let ingredient of recipe.ingredients;
-        let i = index;
-        trackBy: trackByFn
-      "
-      [ingredient]="ingredient"
-      [isActive]="true"
-      (ingredientChange)="handleIngredientChange(i, $event)"
-      (delete)="deleteIngredient(i)"
-    />
+<div *ngIf="recipe">
+  <div
+    class="bg-img full-center"
+    [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
+  >
+    <!-- <input type="file" name="image" (change)="onFileSelected($event)" /> -->
+    <button class="text" (click)="showDialog()">
+      <i class="fa-regular fa-image"></i> edit picture
+    </button>
   </div>
+  <div class="column gap-05 padding-1">
+    <div class="row gap-05 align-center">
+      <input
+        id="title"
+        type="text"
+        [(ngModel)]="recipe.title"
+        class="title grow"
+        size="2"
+      />
+      <input id="time" type="text" [(ngModel)]="recipe.time" size="2" />
+      min.
+    </div>
+    <div class="mb-1">CATEGORY</div>
+    <div class="row align-center space-between">
+      <h2>Ingredients</h2>
+      <button (click)="addIngredient()" class="mini">+</button>
+    </div>
 
-  <div class="row align-center space-between">
-    <h2>Recipe</h2>
-    <button (click)="addStep()" class="mini">+</button>
-  </div>
-  <div *ngIf="recipe.content.length > 1" class="column gap-05">
-    <div
-      *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
-      class="column"
-    >
-      <div class="space-between row align-center">
-        <p>{{ "STEP " + (i + 1) }}</p>
-        <button class="mini no-bg" (click)="deleteStep(i)">
-          <img src="./assets/icons/trash.svg" alt="trash icon" />
-        </button>
+    <div class="column gap-05 mb-1">
+      <app-ingredient
+        *ngFor="
+          let ingredient of recipe.ingredients;
+          let i = index;
+          trackBy: trackByFn
+        "
+        [ingredient]="ingredient"
+        [isActive]="true"
+        (ingredientChange)="handleIngredientChange(i, $event)"
+        (delete)="deleteIngredient(i)"
+      />
+    </div>
+
+    <div class="row align-center space-between">
+      <h2>Recipe</h2>
+      <button (click)="addStep()" class="mini">+</button>
+    </div>
+    <div *ngIf="recipe.content.length > 1" class="column gap-05">
+      <div
+        *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
+        class="column"
+      >
+        <div class="space-between row align-center">
+          <p>{{ "STEP " + (i + 1) }}</p>
+          <button class="mini no-bg" (click)="deleteStep(i)">
+            <img src="./assets/icons/trash.svg" alt="trash icon" />
+          </button>
+        </div>
+
+        <textarea
+          [(ngModel)]="recipe.content[i]"
+          [ngModelOptions]="{ standalone: true }"
+          rows="5"
+          >{{ recipe.content[i] }}</textarea
+        >
       </div>
-
-      <textarea
-        [(ngModel)]="recipe.content[i]"
-        [ngModelOptions]="{ standalone: true }"
-        rows="5"
-        >{{ recipe.content[i] }}</textarea
-      >
     </div>
-  </div>
 
-  <div *ngIf="recipe.content.length < 2">
-    <div
-      *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
-      class="column"
-    >
-      <textarea
-        [(ngModel)]="recipe.content[i]"
-        [ngModelOptions]="{ standalone: true }"
-        rows="5"
-        >{{ recipe.content[i] }}</textarea
+    <div *ngIf="recipe.content.length < 2">
+      <div
+        *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
+        class="column"
       >
+        <textarea
+          [(ngModel)]="recipe.content[i]"
+          [ngModelOptions]="{ standalone: true }"
+          rows="5"
+          >{{ recipe.content[i] }}</textarea
+        >
+      </div>
     </div>
-  </div>
 
-  <button class="text" (click)="save()">save</button>
+    <button class="text" (click)="onSave()">save</button>
+  </div>
 </div>
