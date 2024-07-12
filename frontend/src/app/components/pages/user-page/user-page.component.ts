@@ -9,10 +9,10 @@ import { AuthService } from '../../../services/auth.service';
   styleUrl: './user-page.component.scss',
 })
 export class UserPageComponent {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
   logout = () => {
     console.log('logging out...');
     this.auth.logout();
-    window.location.reload();
+    this.router.navigate(['']);
   };
 }
