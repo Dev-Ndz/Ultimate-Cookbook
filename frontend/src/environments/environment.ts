@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'loca',
-  };
+  production: false,
+  apiUrl: 'https://ultimate-cookbook.netlify.app',
+};
