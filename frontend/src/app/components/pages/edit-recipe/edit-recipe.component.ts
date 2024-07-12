@@ -128,7 +128,8 @@ export class EditRecipeComponent {
   createRecipe(): void {
     this.recipeService.createRecipe(this.recipe).subscribe({
       next: (response: any) => {
-        let id: string = response.id;
+        console.log(response);
+        let id: string = response._id;
         this.router.navigate(['recipe/' + id]);
       },
       error: (error) => {
