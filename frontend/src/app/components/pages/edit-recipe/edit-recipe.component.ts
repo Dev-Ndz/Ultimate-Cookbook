@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Recipe } from '../../../models/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,22 +9,31 @@ import { IngredientComponent } from '../../ingredient/ingredient.component';
 import { RecipeService } from '../../../services/recipe.service';
 import { IngredientModel } from '../../../models/ingredient.model';
 import { Unit } from '../../../models/unit.enum';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { ChoosePictureDialogComponent } from '../../choose-picture-dialog/choose-picture-dialog.component';
 
 @Component({
   selector: 'app-edit-recipe',
   standalone: true,
-  imports: [FormsModule, CommonModule, IngredientComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    IngredientComponent,
+    DialogModule,
+    ButtonModule,
+    ChoosePictureDialogComponent,
+  ],
   templateUrl: './edit-recipe.component.html',
   styleUrl: './edit-recipe.component.scss',
 })
 export class EditRecipeComponent {
-  isEditMode: boolean = false;
   recipe: Recipe = {
     title: '',
     content: [''],
     ingredients: [new IngredientModel(0, '', Unit.Piece)],
   };
-  id = this.route.snapshot.paramMap.get('id');
+  newRecipe: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,10 +41,16 @@ export class EditRecipeComponent {
     private recipeService: RecipeService
   ) {}
 
+  /*********************
+   *                   *
+   *      ON INIT      *
+   *                   *
+   *********************/
+
   getRecipe(): void {
-    if (this.id) {
-      this.isEditMode = true;
-      this.recipeService.getRecipeById(this.id).subscribe({
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.recipeService.getRecipeById(id).subscribe({
         next: (response: any) => {
           this.recipe = new RecipeModel(response);
         },
@@ -43,22 +58,23 @@ export class EditRecipeComponent {
           console.log(error);
         },
       });
+    } else {
+      this.newRecipe = true;
     }
   }
 
-  save(): void {
-    if (this.id) {
-      this.recipeService.editRecipe(this.id, this.recipe).subscribe({
-        next: (response: any) => {
-          this.router.navigate(['recipe/' + this.id]);
-        },
-        error: (error) => {
-          console.log('ERROR', error);
-        },
-      });
-    }
+  ngOnInit() {
+    this.getRecipe();
   }
 
+  /**********************
+   *                    *
+   *   MODIFY RECIEPE   *
+   *                    *
+   **********************/
+
+  /*INGREDIENTS
+   *************/
   handleIngredientChange(index: number, updatedIngredient: ingredient) {
     console.log('Ingredient changed:', updatedIngredient, index);
     this.recipe.ingredients![index] = updatedIngredient;
@@ -70,18 +86,54 @@ export class EditRecipeComponent {
     console.log(index);
     this.recipe.ingredients!.splice(index, 1);
   }
+
+  /*CONTENT
+   *********/
   addStep() {
     this.recipe.content.push('');
   }
   deleteStep(index: number) {
     this.recipe.content.splice(index, 1);
   }
-
   trackByFn(index: any, item: any) {
     return index;
   }
 
-  ngOnInit() {
-    this.getRecipe();
+  /*IMAGE
+   *******/
+  updateImage(url: string) {
+    this.recipe.image = url;
+  }
+
+  /**********************
+   *                    *
+   *    SAVE CHANGES    *
+   *                    *
+   **********************/
+
+  updateRecipe(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.recipeService.editRecipe(id, this.recipe).subscribe({
+        next: (response: any) => {
+          this.router.navigate(['recipe/' + id]);
+        },
+        error: (error) => {
+          console.log('ERROR', error);
+        },
+      });
+    }
+  }
+
+  createRecipe(): void {
+    this.recipeService.createRecipe(this.recipe).subscribe({
+      next: (response: any) => {
+        let id: string = response.id;
+        this.router.navigate(['recipe/' + id]);
+      },
+      error: (error) => {
+        console.log('ERROR', error);
+      },
+    });
   }
 }

@@ -1,77 +1,91 @@
-<div
-  class="bg-img"
-  [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
-></div>
-<div class="column gap-05 padding-1">
-  <div class="row gap-05 align-center">
-    <input
-      id="title"
-      type="text"
-      [(ngModel)]="recipe.title"
-      class="title grow"
-      size="2"
-    />
-    <input id="time" type="text" [(ngModel)]="recipe.time" size="2" />
-    min.
-  </div>
-  <div class="mb-1">CATEGORY</div>
-  <div class="row align-center space-between">
-    <h2>Ingredients</h2>
-    <button (click)="addIngredient()" class="mini">+</button>
-  </div>
-
-  <div class="column gap-05 mb-1">
-    <app-ingredient
-      *ngFor="
-        let ingredient of recipe.ingredients;
-        let i = index;
-        trackBy: trackByFn
-      "
-      [ingredient]="ingredient"
-      [isActive]="true"
-      (ingredientChange)="handleIngredientChange(i, $event)"
-      (delete)="deleteIngredient(i)"
+<div *ngIf="recipe">
+  <div *ngIf="newRecipe" class="padding-1"><h1>New Recipe</h1></div>
+  <div
+    class="full-center"
+    [ngClass]="this.recipe.image ? 'bg-img' : ''"
+    [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
+  >
+    <app-choose-picture-dialog
+      (onImageSelected)="updateImage($event)"
+      [existingPicture]="!!recipe.image"
     />
   </div>
+  <div class="column gap-05 padding-1">
+    <div class="row gap-05 align-center">
+      <input
+        id="title"
+        type="text"
+        [(ngModel)]="recipe.title"
+        class="title grow"
+        size="2"
+        placeholder="title"
+      />
+      <input id="time" type="text" [(ngModel)]="recipe.time" size="2" />
+      min.
+    </div>
+    <!-- <h3 class="mb-1">CATEGORY</h3> -->
+    <div class="row align-center space-between">
+      <h2>Ingredients</h2>
+      <button (click)="addIngredient()" class="mini">+</button>
+    </div>
 
-  <div class="row align-center space-between">
-    <h2>Recipe</h2>
-    <button (click)="addStep()" class="mini">+</button>
-  </div>
-  <div *ngIf="recipe.content.length > 1" class="column gap-05">
-    <div
-      *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
-      class="column"
-    >
-      <div class="space-between row align-center">
-        <p>{{ "STEP " + (i + 1) }}</p>
-        <button class="mini no-bg" (click)="deleteStep(i)">
-          <img src="./assets/icons/trash.svg" alt="trash icon" />
-        </button>
+    <div class="column gap-05 mb-1">
+      <app-ingredient
+        *ngFor="
+          let ingredient of recipe.ingredients;
+          let i = index;
+          trackBy: trackByFn
+        "
+        [ingredient]="ingredient"
+        [isActive]="true"
+        (ingredientChange)="handleIngredientChange(i, $event)"
+        (delete)="deleteIngredient(i)"
+      />
+    </div>
+
+    <div class="row align-center space-between">
+      <h2>Recipe</h2>
+      <button (click)="addStep()" class="mini">+</button>
+    </div>
+    <div *ngIf="recipe.content.length > 1" class="column gap-05">
+      <div
+        *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
+        class="column"
+      >
+        <div class="space-between row align-center">
+          <p>{{ "STEP " + (i + 1) }}</p>
+          <button class="mini no-bg" (click)="deleteStep(i)">
+            <img src="./assets/icons/trash.svg" alt="trash icon" />
+          </button>
+        </div>
+
+        <textarea
+          [(ngModel)]="recipe.content[i]"
+          [ngModelOptions]="{ standalone: true }"
+          rows="5"
+          >{{ recipe.content[i] }}</textarea
+        >
       </div>
-
-      <textarea
-        [(ngModel)]="recipe.content[i]"
-        [ngModelOptions]="{ standalone: true }"
-        rows="5"
-        >{{ recipe.content[i] }}</textarea
-      >
     </div>
-  </div>
 
-  <div *ngIf="recipe.content.length < 2">
-    <div
-      *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
-      class="column"
-    >
-      <textarea
-        [(ngModel)]="recipe.content[i]"
-        [ngModelOptions]="{ standalone: true }"
-        rows="5"
-        >{{ recipe.content[i] }}</textarea
+    <div *ngIf="recipe.content.length < 2">
+      <div
+        *ngFor="let step of recipe.content; let i = index; trackBy: trackByFn"
+        class="column"
       >
+        <textarea
+          [(ngModel)]="recipe.content[i]"
+          [ngModelOptions]="{ standalone: true }"
+          rows="5"
+          >{{ recipe.content[i] }}</textarea
+        >
+      </div>
     </div>
+    <button *ngIf="!newRecipe" class="text" (click)="updateRecipe()">
+      save
+    </button>
+    <button *ngIf="newRecipe" class="text" (click)="createRecipe()">
+      create recipe
+    </button>
   </div>
-
-  <button class="text" (click)="save()">save</button>
 </div>

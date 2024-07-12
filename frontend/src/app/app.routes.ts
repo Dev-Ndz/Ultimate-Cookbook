@@ -41,6 +41,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'new-recipe',
+    component: EditRecipeComponent,
+    canActivate: [authGuard],
+  },
+
+  {
     path: 'login',
     component: LoginComponent,
   },
