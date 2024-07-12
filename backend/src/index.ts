@@ -52,7 +52,7 @@ app.use(bouncer);
 app.get("/grocery-list", getGroceryList);
 app.get("/recipe/:id", getRecipeById);
 app.get("/recipe", getRecipes);
-app.post("/add-recipe", addRecipe);
+app.post("/recipe", addRecipe);
 app.put("/recipe/:id", updateRecipe);
 // app.put("/recipeFD/:id", updateRecipeFD);
 

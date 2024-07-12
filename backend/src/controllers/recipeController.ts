@@ -6,8 +6,12 @@ export const getRecipes = async (req: Request, res: Response) => {
   return res.send(response);
 };
 
-export const addRecipe = async (req: Request, res: Response) => {
-  const recipe = new Recipe(req.body);
+export const addRecipe = async (req: any, res: Response) => {
+  let recipeInfo = req.body;
+  recipeInfo.author = req.user.name;
+  
+  console.log(recipeInfo);
+  let recipe = new Recipe(recipeInfo);
   try {
     await recipe.save();
     return res.send("recipe created !");

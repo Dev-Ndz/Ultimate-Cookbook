@@ -61,7 +61,7 @@ export const login = async (req: Request, res: Response) => {
 
   try {
     const user = await User.findOne({ email: email });
-    console.log(user);
+    console.log("REQUESTION FROM:", user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -72,7 +72,12 @@ export const login = async (req: Request, res: Response) => {
     }
 
     const token = JWT.sign(
-      { _id: user._id, email: user.email, householdId: user.householdId },
+      {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        householdId: user.householdId,
+      },
       JWT_SECRET,
       {
         algorithm: "HS512",
@@ -97,6 +102,7 @@ export const bouncer = async (req: any, res: Response, next: NextFunction) => {
 
     if (decoded !== undefined) {
       req.user = decoded;
+      console.log(decoded);
       return next();
     }
   } catch (err) {

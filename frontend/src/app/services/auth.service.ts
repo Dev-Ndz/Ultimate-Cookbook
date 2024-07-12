@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,14 +11,11 @@ export class AuthService {
 
   register(name: string, email: string, password: string) {
     return this.http
-      .post(
-        'https://ultimate-cookbook-8beb64e72401.herokuapp.com/auth/register',
-        {
-          name,
-          email,
-          password,
-        }
-      )
+      .post(environment.apiUrl + '/auth/register', {
+        name,
+        email,
+        password,
+      })
       .pipe(
         tap((data: any) => {
           localStorage.setItem('JWT_TOKEN', data.token);
@@ -27,7 +25,7 @@ export class AuthService {
 
   login(email: string, password: string) {
     return this.http
-      .post('https://ultimate-cookbook-8beb64e72401.herokuapp.com/auth/login', {
+      .post(environment.apiUrl + '/auth/login', {
         email,
         password,
       })
