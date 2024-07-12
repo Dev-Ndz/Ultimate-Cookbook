@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Recipe } from '../../../models/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,10 +9,9 @@ import { IngredientComponent } from '../../ingredient/ingredient.component';
 import { RecipeService } from '../../../services/recipe.service';
 import { IngredientModel } from '../../../models/ingredient.model';
 import { Unit } from '../../../models/unit.enum';
-import { ImagesService } from '../../../services/images.service';
 import { DialogModule } from 'primeng/dialog';
-import { NoopAnimationPlayer } from '@angular/animations';
 import { ButtonModule } from 'primeng/button';
+import { ChoosePictureDialogComponent } from '../../choose-picture-dialog/choose-picture-dialog.component';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -23,88 +22,59 @@ import { ButtonModule } from 'primeng/button';
     IngredientComponent,
     DialogModule,
     ButtonModule,
+    ChoosePictureDialogComponent,
   ],
   templateUrl: './edit-recipe.component.html',
   styleUrl: './edit-recipe.component.scss',
 })
 export class EditRecipeComponent {
-  isEditMode: boolean = false;
   recipe: Recipe = {
     title: '',
     content: [''],
     ingredients: [new IngredientModel(0, '', Unit.Piece)],
   };
-  id = this.route.snapshot.paramMap.get('id');
-  selectedFile: File | null = null;
-  formData: FormData = new FormData();
-  visible: boolean = false;
+  newRecipe: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private recipeService: RecipeService,
-    private imageService: ImagesService
+    private recipeService: RecipeService
   ) {}
 
+  /*********************
+   *                   *
+   *      ON INIT      *
+   *                   *
+   *********************/
+
   getRecipe(): void {
-    this.isEditMode = true;
-    this.recipeService.getRecipeById(this.id!).subscribe({
-      next: (response: any) => {
-        this.recipe = new RecipeModel(response);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  }
-  showDialog() {
-    this.visible = true;
-  }
-  onSave(): void {
-    if (this.selectedFile) {
-      this.formData.append('image', this.selectedFile, this.selectedFile.name);
-      this.imageService.uploadImage(this.formData).subscribe({
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.recipeService.getRecipeById(id).subscribe({
         next: (response: any) => {
-          this.recipe.image = response.path;
-          console.log(
-            'PICTURE UPLOADED TO : ',
-            response.path,
-            'RECIPE IMAGE URL: ',
-            this.recipe.image
-          );
-          this.updateRecipe();
+          this.recipe = new RecipeModel(response);
         },
-        error: (err: any) => {
-          console.log(err);
+        error: (error) => {
+          console.log(error);
         },
       });
     } else {
-      this.updateRecipe;
+      this.newRecipe = true;
     }
   }
 
-  updateRecipe(): void {
-    console.log('sending edited recipe', this.recipe);
-    this.recipeService.editRecipe(this.id!, this.recipe).subscribe({
-      next: (response: any) => {
-        this.router.navigate(['recipe/' + this.id]);
-      },
-      error: (error) => {
-        console.log('ERROR', error);
-      },
-    });
+  ngOnInit() {
+    this.getRecipe();
   }
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      const imgSrc = URL.createObjectURL(this.selectedFile);
-      this.recipe.image = imgSrc;
-      console.log('image changed after file selected : ', this.recipe);
-    }
-  }
+  /**********************
+   *                    *
+   *   MODIFY RECIEPE   *
+   *                    *
+   **********************/
 
+  /*INGREDIENTS
+   *************/
   handleIngredientChange(index: number, updatedIngredient: ingredient) {
     console.log('Ingredient changed:', updatedIngredient, index);
     this.recipe.ingredients![index] = updatedIngredient;
@@ -116,18 +86,54 @@ export class EditRecipeComponent {
     console.log(index);
     this.recipe.ingredients!.splice(index, 1);
   }
+
+  /*CONTENT
+   *********/
   addStep() {
     this.recipe.content.push('');
   }
   deleteStep(index: number) {
     this.recipe.content.splice(index, 1);
   }
-
   trackByFn(index: any, item: any) {
     return index;
   }
 
-  ngOnInit() {
-    this.getRecipe();
+  /*IMAGE
+   *******/
+  updateImage(url: string) {
+    this.recipe.image = url;
+  }
+
+  /**********************
+   *                    *
+   *    SAVE CHANGES    *
+   *                    *
+   **********************/
+
+  updateRecipe(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.recipeService.editRecipe(id, this.recipe).subscribe({
+        next: (response: any) => {
+          this.router.navigate(['recipe/' + id]);
+        },
+        error: (error) => {
+          console.log('ERROR', error);
+        },
+      });
+    }
+  }
+
+  createRecipe(): void {
+    this.recipeService.createRecipe(this.recipe).subscribe({
+      next: (response: any) => {
+        let id: string = response.id;
+        this.router.navigate(['recipe/' + id]);
+      },
+      error: (error) => {
+        console.log('ERROR', error);
+      },
+    });
   }
 }

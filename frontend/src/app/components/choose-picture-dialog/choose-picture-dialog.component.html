@@ -1,0 +1,90 @@
+<button
+  class="text"
+  [ngClass]="existingPicture ? '' : 'no-bg'"
+  (click)="showDialog()"
+>
+  <i class="fa-regular fa-image"></i>
+  {{ existingPicture ? "edit picture" : "add picture" }}
+</button>
+
+<p-dialog
+  [modal]="true"
+  [(visible)]="visible"
+  [closable]="false"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div *ngIf="isLoading" class="grow full-center">
+    <i class="pi pi-spin pi-spinner"></i>
+  </div>
+  <div *ngIf="!isLoading">
+    <div class="column gap-1">
+      SELECT AN IMAGE
+      <div class="full-center">
+        <div
+          *ngIf="preview"
+          class="bg-img full-center"
+          [ngStyle]="{
+            'background-image': 'url(' + preview + ')',
+            width: '200px'
+          }"
+        ></div>
+        <div
+          *ngIf="!preview"
+          class="bg-img full-center"
+          [ngStyle]="{
+            width: '200px'
+          }"
+        >
+          <i class="fa-regular fa-image fa-2x icon-color-bg-light"></i>
+        </div>
+      </div>
+
+      <div class="pointer">
+        <label
+          for="file-upload"
+          class="mb-05 column full-center gap-05 pointer"
+        >
+          <i class="fa-solid fa-cloud-arrow-up fa-2x"></i>Import From
+          Files</label
+        >
+        <input
+          id="file-upload"
+          type="file"
+          name="image"
+          (change)="onFileSelected($event)"
+          size="0"
+          #fileInput
+          class="hidden"
+        />
+      </div>
+
+      <p-divider [style]="{ 'background-color': 'transparent' }" align="center">
+        OR
+      </p-divider>
+
+      <div class="column">
+        <div class="mb-05">Enter an image URL</div>
+        <input
+          type="text"
+          [(ngModel)]="inputvalue"
+          size="0"
+          (ngModelChange)="onUrlChange()"
+          placeholder="Enter url..."
+        />
+      </div>
+      <div class="flex justify-content-end gap-2">
+        <button label="Cancel" class="text" (click)="closeDialog(fileInput)">
+          cancel
+        </button>
+        <button
+          label="validate"
+          class="text"
+          (click)="handleValidate(fileInput)"
+        >
+          validate
+        </button>
+      </div>
+    </div>
+  </div>
+</p-dialog>

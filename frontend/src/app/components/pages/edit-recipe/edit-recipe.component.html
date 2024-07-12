@@ -1,41 +1,14 @@
-<!-- <p-dialog
-  header="Edit Profile"
-  [modal]="true"
-  [(visible)]="visible"
-  [style]="{ width: '25rem' }"
-> -->
-<p-dialog
-  header="Edit Profile"
-  [modal]="true"
-  [(visible)]="visible"
->
-  <span class="p-text-secondary block mb-5">Update your information.</span>
-  <div class="flex align-items-center gap-3 mb-3">
-    <label for="username" class="font-semibold w-6rem">Username</label>
-    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-  </div>
-  <div class="flex align-items-center gap-3 mb-5">
-    <label for="email" class="font-semibold w-6rem">Email</label>
-    <input pInputText id="email" class="flex-auto" autocomplete="off" />
-  </div>
-  <div class="flex justify-content-end gap-2">
-    <button
-      label="Cancel"
-      severity="secondary"
-      (click)="visible = false"
-    ></button>
-  </div>
-</p-dialog>
-
 <div *ngIf="recipe">
+  <div *ngIf="newRecipe" class="padding-1"><h1>New Recipe</h1></div>
   <div
-    class="bg-img full-center"
+    class="full-center"
+    [ngClass]="this.recipe.image ? 'bg-img' : ''"
     [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
   >
-    <!-- <input type="file" name="image" (change)="onFileSelected($event)" /> -->
-    <button class="text" (click)="showDialog()">
-      <i class="fa-regular fa-image"></i> edit picture
-    </button>
+    <app-choose-picture-dialog
+      (onImageSelected)="updateImage($event)"
+      [existingPicture]="!!recipe.image"
+    />
   </div>
   <div class="column gap-05 padding-1">
     <div class="row gap-05 align-center">
@@ -45,11 +18,12 @@
         [(ngModel)]="recipe.title"
         class="title grow"
         size="2"
+        placeholder="title"
       />
       <input id="time" type="text" [(ngModel)]="recipe.time" size="2" />
       min.
     </div>
-    <div class="mb-1">CATEGORY</div>
+    <!-- <h3 class="mb-1">CATEGORY</h3> -->
     <div class="row align-center space-between">
       <h2>Ingredients</h2>
       <button (click)="addIngredient()" class="mini">+</button>
@@ -107,7 +81,11 @@
         >
       </div>
     </div>
-
-    <button class="text" (click)="onSave()">save</button>
+    <button *ngIf="!newRecipe" class="text" (click)="updateRecipe()">
+      save
+    </button>
+    <button *ngIf="newRecipe" class="text" (click)="createRecipe()">
+      create recipe
+    </button>
   </div>
 </div>

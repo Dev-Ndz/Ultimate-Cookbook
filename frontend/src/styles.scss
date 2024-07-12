@@ -2,11 +2,14 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 
+@import "primeicons/primeicons.css";
+
 :root {
   --highlight1: rgba(124, 169, 130, 1);
   --highlight2: rgba(193, 108, 44, 1);
   --highlight21: #e06c12;
   --text-color: rgba(255, 255, 255, 1);
+  --text-color2: rgb(200, 225, 255);
   --bg-dark: rgba(42, 65, 72, 1);
   --bg-dark-transparent: rgba(42, 65, 72, 0.6);
   --bg-mid: rgba(56, 94, 103, 1);
@@ -19,6 +22,7 @@
   font-family: "Roboto";
   color: var(--text-color);
 }
+
 body {
   background-color: var(--bg-dark);
   display: flex;
@@ -39,11 +43,23 @@ app-login {
 app-register {
   flex-grow: 1;
 }
+h1 {
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
 
 h2 {
   font-family: "Arvo";
   font-size: 1.5rem;
   font-weight: 400;
+}
+h3 {
+  font-size: 1rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 a {
@@ -144,11 +160,20 @@ li {
   opacity: 0.5;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .bg-img {
   // width: 100%;
   aspect-ratio: 1;
   background-position: center;
   background-size: cover;
+}
+
+// this should be refactored...
+.icon-color-bg-light * {
+  color: var(--bg-light);
 }
 
 input,
@@ -162,6 +187,9 @@ textarea {
   &:focus {
     outline: 1px solid var(--text-color);
     background-color: var(--bg-light);
+  }
+  &::placeholder {
+    color: var(--text-color);
   }
 }
 
@@ -232,8 +260,17 @@ button {
   background-color: rgb(81, 175, 53);
 }
 
-.p-dialog-content,
-.p-dialog-footer,
-.p-dialog-header {
+.p-dialog-content {
   background: var(--bg-dark);
+  padding: 1rem;
+}
+
+.p-divider-content {
+  background: var(--bg-dark);
+  color: var(--bg-light);
+  padding: 1rem;
+}
+
+.p-divider.p-divider-horizontal::before {
+  border-color: var(--bg-light);
 }
