@@ -9,12 +9,12 @@ export const getRecipes = async (req: Request, res: Response) => {
 export const addRecipe = async (req: any, res: Response) => {
   let recipeInfo = req.body;
   recipeInfo.author = req.user.name;
-  
+
   console.log(recipeInfo);
   let recipe = new Recipe(recipeInfo);
   try {
     await recipe.save();
-    return res.send("recipe created !");
+    return res.send(recipe);
   } catch (err) {
     console.log(err);
     return res.status(500).send({ error: "Internal server error : " });
@@ -45,16 +45,3 @@ export const updateRecipe = async (req: Request, res: Response) => {
     return res.status(500).send({ error: "Server error : " + err });
   }
 };
-
-// export const updateRecipeFD = async (req: Request, res: Response) => {
-//   const id = req.params.id;
-//   const recipe = req.body;
-//   console.log(req.body);
-//   console.log("update recipe :", id, recipe);
-//   try {
-//     res.send({ message: "recipe updated :" + recipe.name });
-//   } catch (err) {
-//     console.log(err);
-//     return res.status(500).send({ error: "Server error : " + err });
-//   }
-// };
