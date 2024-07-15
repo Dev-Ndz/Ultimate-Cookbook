@@ -1,5 +1,10 @@
 import mongoose, { Schema } from "mongoose";
-import { Unit } from "./unit.enum";
+
+export interface IIngredient extends Document {
+  quantity?: number;
+  name: string;
+  unit?: string;
+}
 
 export const ingredientSchema = new Schema({
   quantity: { type: Number, required: false },
@@ -7,4 +12,7 @@ export const ingredientSchema = new Schema({
   unit: { type: String, required: false },
 });
 
-export const Ingredient = mongoose.model("Ingredient", ingredientSchema);
+export const Ingredient = mongoose.model<IIngredient>(
+  "Ingredient",
+  ingredientSchema
+);

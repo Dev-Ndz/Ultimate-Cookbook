@@ -70,7 +70,7 @@ export const login = async (req: Request, res: Response) => {
     if (!isPasswordMatched) {
       return res.status(400).json({ message: "wrong password" });
     }
-
+    console.log(user);
     const token = JWT.sign(
       {
         _id: user._id,
@@ -102,7 +102,6 @@ export const bouncer = async (req: any, res: Response, next: NextFunction) => {
 
     if (decoded !== undefined) {
       req.user = decoded;
-      console.log(decoded);
       return next();
     }
   } catch (err) {
