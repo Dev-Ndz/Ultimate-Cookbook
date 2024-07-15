@@ -2,7 +2,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Recipe } from '../../../models/recipe';
-import { ingredient } from '../../../models/ingredient.interface';
+import { Ingredient } from '../../../models/ingredient.interface';
 import { CommonModule } from '@angular/common';
 import { AddToListComponent } from '../../buttons/add-to-list/add-to-list.component';
 import { AddToPlanningComponent } from '../../buttons/add-to-planning/add-to-planning.component';

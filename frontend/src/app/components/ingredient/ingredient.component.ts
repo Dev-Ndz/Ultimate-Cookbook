@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IngredientModel } from '../../models/ingredient.model';
-import { ingredient } from '../../models/ingredient.interface';
+import { Ingredient } from '../../models/ingredient.interface';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Unit } from '../../models/unit.enum';
@@ -13,13 +13,13 @@ import { Unit } from '../../models/unit.enum';
   styleUrl: './ingredient.component.scss',
 })
 export class IngredientComponent {
-  @Input() ingredient!: ingredient;
+  @Input() ingredient!: Ingredient;
   @Input() isActive!: boolean;
-  @Output() ingredientChange = new EventEmitter<ingredient>();
+  @Output() ingredientChange = new EventEmitter<Ingredient>();
   @Output() delete = new EventEmitter<number>();
   units = Object.values(Unit);
 
-  deleteIngredient(){
+  deleteIngredient() {
     this.delete.emit();
   }
 
@@ -33,6 +33,5 @@ export class IngredientComponent {
       this.ingredient.name,
       this.ingredient.unit
     );
-
   }
 }

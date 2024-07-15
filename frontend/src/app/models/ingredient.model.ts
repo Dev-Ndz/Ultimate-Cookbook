@@ -1,7 +1,7 @@
-import { ingredient } from './ingredient.interface';
+import { Ingredient } from './ingredient.interface';
 import { Unit } from './unit.enum';
 
-export class IngredientModel implements ingredient {
+export class IngredientModel implements Ingredient {
   quantity: number;
   name: string;
   unit: Unit;

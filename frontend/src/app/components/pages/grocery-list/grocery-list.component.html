@@ -1,1 +1,7 @@
-<p>grocery-list works!</p>
+<div *ngIf="isLoading" class="grow full-center">
+  <i class="pi pi-spin pi-spinner"></i>
+</div>
+
+<div *ngIf="groceryList">
+  <app-ingredient *ngFor="let ingredient of groceryList.ingredients" />
+</div>

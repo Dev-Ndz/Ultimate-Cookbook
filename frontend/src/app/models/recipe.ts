@@ -1,4 +1,4 @@
-import { ingredient } from './ingredient.interface';
+import { Ingredient } from './ingredient.interface';
 
 export interface Recipe {
   _id?: string;
@@ -6,7 +6,7 @@ export interface Recipe {
   author?: string;
   content: string[];
   categories?: string[];
-  ingredients?: ingredient[];
+  ingredients?: Ingredient[];
   time?: number;
   image?: string;
   createdAt?: string;

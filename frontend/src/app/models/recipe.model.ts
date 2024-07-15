@@ -1,4 +1,4 @@
-import { ingredient } from './ingredient.interface';
+import { Ingredient } from './ingredient.interface';
 import { IngredientModel } from './ingredient.model';
 import { Recipe } from './recipe';
 
@@ -8,7 +8,7 @@ export class RecipeModel implements Recipe {
   author?: string;
   content: string[];
   categories?: string[];
-  ingredients?: ingredient[];
+  ingredients?: Ingredient[];
   time?: number;
   image?: string;
   createdAt?: string;
@@ -21,7 +21,7 @@ export class RecipeModel implements Recipe {
     this.content = recipe.content;
     if (recipe.ingredients) {
       this.ingredients = recipe.ingredients.map(
-        (ingredient: ingredient) =>
+        (ingredient: Ingredient) =>
           new IngredientModel(
             ingredient.quantity,
             ingredient.name,
