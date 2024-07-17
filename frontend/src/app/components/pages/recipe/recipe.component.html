@@ -10,7 +10,7 @@
     </div>
     <div class="mb-1">CATEGORY</div>
     <div class="row space-between mb-1">
-      <app-add-to-list />
+      <app-add-to-list [recipe]="recipeData" />
       <app-add-to-planning />
       <button class="icon" [routerLink]="['/recipe/edit/' + recipe._id]">
         <img src="./assets/icons/edit.svg" alt="" />

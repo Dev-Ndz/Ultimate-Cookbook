@@ -1,7 +1,33 @@
-<div *ngIf="isLoading" class="grow full-center">
-  <i class="pi pi-spin pi-spinner"></i>
-</div>
+<div class="padding-1">
+  <h1 class="mb-1">Grocery List</h1>
 
-<div *ngIf="groceryList">
-  <app-ingredient *ngFor="let ingredient of groceryList.ingredients" />
+  <div *ngIf="isLoading" class="grow full-center">
+    <div><i class="pi pi-spin pi-spinner"></i></div>
+  </div>
+
+  <div *ngIf="groceryList" class="column gap-1 mb-1">
+    <app-ingredient
+      *ngFor="
+        let ingredient of groceryList.ingredients;
+        let i = index;
+        trackBy: trackByFn
+      "
+      [ingredient]="ingredient"
+      [index]="i"
+      [isActive]="false"
+      (emitIngredient)="updateIngredient(i, $event)"
+      (delete)="deleteIngredient(i)"
+    />
+
+    <app-ingredient
+      *ngIf="visibility"
+      [ingredient]="newItem"
+      [isActive]="true"
+      (emitIngredient)="addItem($event)"
+      (delete)="hideNewIngredient()"
+    />
+  </div>
+  <div class="full-center">
+    <button class="text" (click)="displayNewIngredient()">add item</button>
+  </div>
 </div>
