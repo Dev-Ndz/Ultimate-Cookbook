@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Recipe } from '../../../models/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeModel } from '../../../models/recipe.model';
-import { ingredient } from '../../../models/ingredient.interface';
 import { CommonModule } from '@angular/common';
 import { IngredientComponent } from '../../ingredient/ingredient.component';
 import { RecipeService } from '../../../services/recipe.service';
@@ -75,7 +74,7 @@ export class EditRecipeComponent {
 
   /*INGREDIENTS
    *************/
-  handleIngredientChange(index: number, updatedIngredient: ingredient) {
+  handleIngredientChange(index: number, updatedIngredient: IngredientModel) {
     console.log('Ingredient changed:', updatedIngredient, index);
     this.recipe.ingredients![index] = updatedIngredient;
   }

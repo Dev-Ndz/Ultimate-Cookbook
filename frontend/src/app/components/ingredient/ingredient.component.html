@@ -1,4 +1,4 @@
-<div *ngIf="isActive" class="row gap-05 align-center">
+<div *ngIf="editMode" class="row gap-05 align-center">
   <input
     type="text"
     [(ngModel)]="ingredient.quantity"
@@ -17,13 +17,52 @@
     size="1"
     (ngModelChange)="onIngredientChange()"
   />
-  <button class="mini no-bg" (click)="deleteIngredient()">
-    <img src="./assets/icons/trash.svg" alt="trash icon" />
-  </button>
+  <div class="row">
+    <button *ngIf="!editOnly" class="mini no-bg" (click)="saveIngredient()">
+      <img src="./assets/icons/check.svg" alt="save change icon" />
+    </button>
+    <button class="mini no-bg full-center" (click)="deleteIngredient()">
+      <img
+        src="./assets/icons/trash.svg"
+        alt="trash icon"
+        class="full-center"
+      />
+    </button>
+  </div>
 </div>
 
-<div *ngIf="!isActive">
-  <p>
+<div
+  *ngIf="!editMode"
+  class="row align-center gap-05"
+  [ngClass]="
+    grayedIfChecked
+      ? ingredient.isChecked
+        ? 'grayed'
+        : ''
+      : ingredient.isChecked
+        ? ''
+        : 'grayed'
+  "
+>
+  <div class="checkbox">
+    <input
+      type="checkbox"
+      [(ngModel)]="ingredient.isChecked"
+      (ngModelChange)="saveIngredient()"
+      [id]="'checkbox' + this.index"
+    />
+    <label [for]="'checkbox' + this.index"></label>
+  </div>
+
+  <p class="grow">
     {{ ingredient.toString() }}
   </p>
+  <div *ngIf="!ViewOnly" class="row">
+    <button class="mini no-bg" (click)="editMode = true">
+      <img src="./assets/icons/edit.svg" alt="edit icon" />
+    </button>
+    <button class="mini no-bg" (click)="deleteIngredient()">
+      <img src="./assets/icons/trash.svg" alt="trash icon" />
+    </button>
+  </div>
 </div>

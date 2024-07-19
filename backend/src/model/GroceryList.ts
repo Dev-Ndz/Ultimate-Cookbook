@@ -1,5 +1,10 @@
 import mongoose, { Schema } from "mongoose";
-import { ingredientSchema } from "./Ingredients";
+import { IIngredient, ingredientSchema } from "./Ingredients";
+
+export interface IGroceryList {
+  _id: string;
+  ingredients: [IIngredient];
+}
 
 export const groceryListSchema = new Schema(
   {
@@ -8,4 +13,7 @@ export const groceryListSchema = new Schema(
   { timestamps: true }
 );
 
-export const GroceryList = mongoose.model("GroceryList", groceryListSchema);
+export const GroceryList = mongoose.model<IGroceryList>(
+  "GroceryList",
+  groceryListSchema
+);

@@ -8,7 +8,7 @@ import {
   getRecipeById,
   updateRecipe,
 } from "./controllers/recipeController";
-import { addItem, getGroceryList } from "./controllers/groceryListController";
+import { addItems, getGroceryList, updateGroceryList } from "./controllers/groceryListController";
 import { bouncer, login, register } from "./controllers/authController";
 import { upload } from "./utils/storage";
 
@@ -54,7 +54,7 @@ app.get("/recipe/:id", getRecipeById);
 app.get("/recipe", getRecipes);
 app.post("/recipe", addRecipe);
 app.put("/recipe/:id", updateRecipe);
-// app.put("/recipeFD/:id", updateRecipeFD);
 
 app.get("/grocery-list", getGroceryList);
-app.post("/grocery-list", addItem);
+app.post("/grocery-list", addItems);
+app.put("/grocery-list", updateGroceryList);

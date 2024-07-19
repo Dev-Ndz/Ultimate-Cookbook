@@ -37,7 +37,8 @@
           trackBy: trackByFn
         "
         [ingredient]="ingredient"
-        [isActive]="true"
+        [editMode]="true"
+        [editOnly]="true"
         (ingredientChange)="handleIngredientChange(i, $event)"
         (delete)="deleteIngredient(i)"
       />
