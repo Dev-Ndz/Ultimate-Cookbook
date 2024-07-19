@@ -55,7 +55,6 @@ export class IngredientComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     const change = changes['ingredient'];
-    console.log('Change detected', change);
     this.ingredient = new IngredientModel(
       this.ingredient.quantity,
       this.ingredient.name,
