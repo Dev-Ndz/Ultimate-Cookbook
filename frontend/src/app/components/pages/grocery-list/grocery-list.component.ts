@@ -17,7 +17,6 @@ import { IngredientModel } from '../../../models/ingredient.model';
 export class GroceryListComponent {
   constructor(private groceryListService: GroceryListService) {}
   groceryList?: GroceryList;
-  isLoading = false;
   newItem = {
     quantity: 0,
     name: '',
@@ -27,7 +26,6 @@ export class GroceryListComponent {
   visibility = false;
 
   getGroceryList() {
-    this.isLoading = true;
     this.groceryListService.getGroceryList().subscribe({
       next: (response: any) => {
         this.groceryList = response;
@@ -40,7 +38,6 @@ export class GroceryListComponent {
             ingredient.isChecked
           );
         });
-        this.isLoading = false;
       },
       error: (err) => {
         console.log(err);

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { LoadingService } from '../../services/loading.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-loading',
@@ -11,9 +12,14 @@ import { LoadingService } from '../../services/loading.service';
   styleUrl: './loading.component.scss',
 })
 export class LoadingComponent {
-  loading = this.loadingService.loading;
+  isLoading: boolean = false;
   constructor(private loadingService: LoadingService) {}
+
   ngOnInit() {
-    console.log(this.loading);
+    this.loadingService.loading$.subscribe(
+      (loading: boolean) => {
+        this.isLoading = loading;
+      }
+    );
   }
 }
