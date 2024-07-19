@@ -287,6 +287,14 @@ input[type="checkbox"] {
   background: var(--bg-dark);
   padding: 1rem;
 }
+.loading {
+  .p-dialog {
+    box-shadow: none;
+  }
+  .p-dialog-content {
+    background: transparent;
+  }
+}
 
 .p-divider-content {
   background: var(--bg-dark);
