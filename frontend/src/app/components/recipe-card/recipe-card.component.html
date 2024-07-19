@@ -1,16 +1,17 @@
 <div *ngIf="recipe">
-  <a
+  <div
     class="container bg-img column border-radius"
     [ngStyle]="{ 'background-image': 'url(' + recipe.image + ')' }"
-    [routerLink]="['/recipe/' + recipe._id]"
   >
-    <div class="grow"></div>
+    <a class="grow" [routerLink]="['/recipe/' + recipe._id]"></a>
     <div class="row align-center space-between padding-05 fade">
-      <h2>{{ recipe.title }}</h2>
+      <h2 class="pointer grow" [routerLink]="['/recipe/' + recipe._id]">
+        {{ recipe.title }}
+      </h2>
+      <div class="row gap-1 full-center">
+        <app-add-to-list [recipe]="recipe" />
+        <app-add-to-planning />
+      </div>
     </div>
-  </a>
-  <div class="row gap-1 full-center">
-    <app-add-to-list [recipe]="recipe" />
-    <app-add-to-planning />
   </div>
 </div>
