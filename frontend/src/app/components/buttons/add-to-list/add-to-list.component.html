@@ -13,8 +13,10 @@
     <h3>Select ingredients to add to the grocery list :</h3>
     <app-ingredient
       *ngFor="let ingredient of recipe.ingredients; let i = index"
+      [index]="i"
       [ingredient]="ingredient"
-      [canEdit]="false"
+      [ViewOnly]="true"
+      [grayedIfChecked]="false"
       (ingredientChange)="handleCheck(i, $event)"
     />
   </div>

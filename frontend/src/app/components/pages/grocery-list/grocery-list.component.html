@@ -14,7 +14,7 @@
       "
       [ingredient]="ingredient"
       [index]="i"
-      [isActive]="false"
+      [editMode]="false"
       (emitIngredient)="updateIngredient(i, $event)"
       (delete)="deleteIngredient(i)"
     />
@@ -22,7 +22,7 @@
     <app-ingredient
       *ngIf="visibility"
       [ingredient]="newItem"
-      [isActive]="true"
+      [editMode]="true"
       (emitIngredient)="addItem($event)"
       (delete)="hideNewIngredient()"
     />

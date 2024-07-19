@@ -20,9 +20,11 @@ import { Unit } from '../../models/unit.enum';
 })
 export class IngredientComponent {
   @Input() ingredient!: Ingredient;
-  @Input() isActive!: boolean;
-  @Input() canEdit: boolean = true;
   @Input() index?: number;
+  @Input() editMode: boolean = false;
+  @Input() editOnly: boolean = false;
+  @Input() ViewOnly: boolean = false;
+  @Input() grayedIfChecked: boolean = true;
   @Output() ingredientChange = new EventEmitter<Ingredient>();
   @Output() emitIngredient = new EventEmitter<Ingredient>();
   @Output() delete = new EventEmitter<number>();
@@ -39,7 +41,7 @@ export class IngredientComponent {
 
   saveIngredient() {
     this.emitIngredient.emit(this.ingredient);
-    this.isActive = false;
+    this.editMode = false;
   }
 
   ngOnInit() {

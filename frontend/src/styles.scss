@@ -261,6 +261,7 @@ input[type="checkbox"] {
   border-radius: 0.5rem;
   // background-color: var(--bg-light);
   border: 2px solid var(--text-color);
+  cursor: pointer;
 }
 
 .checkbox input[type="checkbox"]:checked + label {
