@@ -11,6 +11,10 @@ export const daySchema = new Schema(
       type: [mealSchema],
       required: false,
     },
+    name: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: false }
 );
