@@ -1,9 +1,14 @@
 import mongoose, { Schema } from "mongoose";
-import { daySchema } from "./Day";
+import { daySchema, IDay } from "./Day";
+
+export interface IPlanning {
+  _id: string;
+  days: [IDay];
+}
 
 export const planningSchema = new Schema(
   {
-    planning: { type: [daySchema], required: true },
+    days: { type: [daySchema], required: true },
   },
   { timestamps: false }
 );

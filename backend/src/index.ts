@@ -15,7 +15,7 @@ import {
 } from "./controllers/groceryListController";
 import { bouncer, login, register } from "./controllers/authController";
 import { upload } from "./utils/storage";
-import { getPlanning } from "./controllers/planningController";
+import { getPlanning, updatePlanning } from "./controllers/planningController";
 
 const app = express();
 
@@ -65,3 +65,4 @@ app.post("/grocery-list", addItems);
 app.put("/grocery-list", updateGroceryList);
 
 app.get("/planning", getPlanning);
+app.put("/planning", updatePlanning);
