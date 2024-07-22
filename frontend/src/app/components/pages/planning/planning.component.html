@@ -1,1 +1,14 @@
-<p>planning works!</p>
+<h1>planning</h1>
+
+<div *ngIf="planning">
+  <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn">
+    <div>
+      <app-day [name]="day.name || 'day ' + (i + 1)" (emitName)="saveName($event, i)"/>
+    </div>
+
+    <div *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn">
+      {{ meal.recipeTitle }}
+    </div>
+  </div>
+  <button class="text" (click)="updatePlanning()">validate</button>
+</div>

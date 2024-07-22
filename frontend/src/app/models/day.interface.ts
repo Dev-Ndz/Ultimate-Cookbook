@@ -1,5 +1,6 @@
-import { meal } from './meal.interface';
+import { Meal } from './meal.interface';
 
 export interface Day {
-  meals: meal[];
+  name?: string;
+  meals?: Meal[];
 }
