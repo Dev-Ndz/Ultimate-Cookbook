@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
-import { plannedRecipeSchema } from "./PlannedRecipe";
+import { daySchema } from "./Day";
 
 export const planningSchema = new Schema(
   {
-    planning: { type: [plannedRecipeSchema], required: false },
+    planning: { type: [daySchema], required: true },
   },
-  { timestamps: true }
+  { timestamps: false }
 );
 
 export const Planning = mongoose.model("Planning", planningSchema);
