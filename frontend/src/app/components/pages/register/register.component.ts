@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   name: string = '';
@@ -22,7 +22,13 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  register = (event: Event) => {
+  register(event: Event) {
+    event.preventDefault(); // Prevent default form submission
+    if (!this.name || !this.email || !this.password) {
+      this.errorMessage = 'Please fill in all required fields.';
+      return;
+    }
+
     this.authService
       .register(this.name, this.email, this.password)
       .pipe(
@@ -43,5 +49,5 @@ export class RegisterComponent {
           console.log(error);
         },
       });
-  };
+  }
 }
