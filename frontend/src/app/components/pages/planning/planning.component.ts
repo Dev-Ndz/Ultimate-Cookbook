@@ -4,11 +4,12 @@ import { Planning } from '../../../models/planning.interface';
 import { CommonModule } from '@angular/common';
 import { DayComponent } from '../../day/day.component';
 import { MealComponent } from '../../meal/meal.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-planning',
   standalone: true,
-  imports: [CommonModule, DayComponent, MealComponent],
+  imports: [CommonModule, DayComponent, MealComponent, RouterLink],
   templateUrl: './planning.component.html',
   styleUrl: './planning.component.scss',
 })
