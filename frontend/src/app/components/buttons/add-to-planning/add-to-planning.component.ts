@@ -57,6 +57,8 @@ export class AddToPlanningComponent {
 
   addToDay(index: number) {
     this.planning.days[index].recipes?.push(this.recipe);
+    console.log(this.recipe);
+    console.log(this.planning.days);
   }
 
   trackByFn(index: any, item: any) {

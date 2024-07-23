@@ -3,20 +3,13 @@ import { PlanningService } from '../../../services/planning.service';
 import { Planning } from '../../../models/planning.interface';
 import { CommonModule } from '@angular/common';
 import { DayComponent } from '../../day/day.component';
-import { MealComponent } from '../../meal/meal.component';
 import { RouterLink } from '@angular/router';
 import { AddToListComponent } from '../../buttons/add-to-list/add-to-list.component';
 
 @Component({
   selector: 'app-planning',
   standalone: true,
-  imports: [
-    CommonModule,
-    DayComponent,
-    MealComponent,
-    RouterLink,
-    AddToListComponent,
-  ],
+  imports: [CommonModule, DayComponent, RouterLink, AddToListComponent],
   templateUrl: './planning.component.html',
   styleUrl: './planning.component.scss',
 })

@@ -1,5 +1,17 @@
 import mongoose, { Schema } from "mongoose";
-import { ingredientSchema } from "./Ingredients";
+import { IIngredient, ingredientSchema } from "./Ingredients";
+
+export interface IRecipe extends Document {
+  title: string;
+  author: string;
+  content: string[];
+  categories?: string[];
+  ingredients?: IIngredient[];
+  time?: number;
+  image?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 export const recipeSchema = new Schema(
   {
     title: { type: String, required: true },

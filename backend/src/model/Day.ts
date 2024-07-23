@@ -1,14 +1,15 @@
 import mongoose, { Schema } from "mongoose";
 import { IMeal, mealSchema } from "./Meal";
+import { IRecipe, recipeSchema } from "./Recipe";
 
 export interface IDay {
-  meals: [IMeal];
+  recipes: [IRecipe];
 }
 
 export const daySchema = new Schema(
   {
-    meals: {
-      type: [mealSchema],
+    recipes: {
+      type: [recipeSchema],
       required: false,
     },
     name: {

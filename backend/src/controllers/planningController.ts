@@ -19,7 +19,7 @@ export const updatePlanning = async (req: any, res: Response) => {
   try {
     const updatedPlanning = await Planning.findOneAndReplace(
       { _id: planning._id },
-      { days : planning.days},
+      { days: planning.days },
       { new: true }
     );
     return res.send({
