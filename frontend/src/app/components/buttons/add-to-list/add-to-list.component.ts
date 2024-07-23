@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Recipe } from '../../../models/recipe';
 import { Ingredient } from '../../../models/ingredient.interface';
 import { DialogModule } from 'primeng/dialog';
@@ -24,12 +24,10 @@ export class AddToListComponent {
   showDialog() {
     console.log('showDialog() starts...');
     this.visible = true;
-    this.ingredients = this.ingredients!.map(
-      (ingredient: Ingredient) => ({
-        ...ingredient,
-        isChecked: true,
-      })
-    );
+    this.ingredients = this.ingredients!.map((ingredient: Ingredient) => ({
+      ...ingredient,
+      isChecked: true,
+    }));
   }
   closeDialog() {
     this.selectedIngredients = [];
@@ -58,5 +56,15 @@ export class AddToListComponent {
     this.ingredients?.forEach(
       (ingredient: Ingredient) => (ingredient.isChecked = true)
     );
+    console.log(this.ingredients);
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['ingredients']) {
+      // Perform any necessary actions when ingredients input changes
+      console.log(
+        'Ingredients have changed:',
+        changes['ingredients'].currentValue
+      );
+    }
   }
 }

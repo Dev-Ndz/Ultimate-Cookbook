@@ -1,5 +1,4 @@
 import mongoose, { Schema } from "mongoose";
-import { IMeal, mealSchema } from "./Meal";
 import { IRecipe, recipeSchema } from "./Recipe";
 
 export interface IDay {

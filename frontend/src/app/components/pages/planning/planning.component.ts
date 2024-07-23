@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { DayComponent } from '../../day/day.component';
 import { RouterLink } from '@angular/router';
 import { AddToListComponent } from '../../buttons/add-to-list/add-to-list.component';
+import { Ingredient } from '../../../models/ingredient.interface';
+import { Day } from '../../../models/day.interface';
 
 @Component({
   selector: 'app-planning',
@@ -18,13 +20,14 @@ export class PlanningComponent {
     _id: '',
     days: [],
   };
+  list: Ingredient[] = [];
   constructor(private planningService: PlanningService) {}
 
   getPlanning() {
     this.planningService.getPlanning().subscribe({
       next: (response: any) => {
         this.planning = response;
-        console.log(response);
+        this.updateList();
       },
       error: (err) => console.log(err),
     });
@@ -33,10 +36,25 @@ export class PlanningComponent {
   updatePlanning() {
     if (this.planning) {
       this.planningService.updatePlanning(this.planning).subscribe({
-        next: (response: any) => (this.planning = response.updatedPlanning),
+        next: (response: any) => {
+          this.planning = response.updatedPlanning;
+          this.updateList();
+          console.log(this.list);
+        },
         error: (err) => console.log(err),
       });
     }
+  }
+
+  updateList() {
+    this.list = [];
+    this.planning.days.forEach((day: Day) => {
+      day.recipes?.forEach((recipe) => {
+        recipe.ingredients?.forEach((ingredient: Ingredient) => {
+          this.list.push(ingredient);
+        });
+      });
+    });
   }
 
   saveName(updatedName: string, index: number) {

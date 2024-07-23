@@ -1,7 +1,7 @@
 <div class="padding-05 row gap-1">
   <h1 class="grow">planning</h1>
 
-  <app-add-to-list />
+  <app-add-to-list [ingredients]="this.list" />
   <button class="icon full-center" (click)="deletePlanning()">
     <img src="./assets/icons/trash.svg" alt="trash icon" class="smaller" />
   </button>
