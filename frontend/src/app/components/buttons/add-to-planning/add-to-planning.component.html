@@ -21,9 +21,9 @@
 
         <div
           class="color-text2"
-          *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn"
+          *ngFor="let meal of day.recipes; let j = index; trackBy: trackByFn"
         >
-          {{ meal.recipeTitle }}
+          {{ recipe.title }}
         </div>
       </div>
     </div>

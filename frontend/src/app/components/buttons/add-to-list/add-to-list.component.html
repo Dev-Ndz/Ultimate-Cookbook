@@ -12,7 +12,7 @@
   <div class="padding-1 column gap-05">
     <h3>Select ingredients to add to the grocery list :</h3>
     <app-ingredient
-      *ngFor="let ingredient of recipe.ingredients; let i = index"
+      *ngFor="let ingredient of ingredients; let i = index"
       [index]="i"
       [ingredient]="ingredient"
       [ViewOnly]="true"

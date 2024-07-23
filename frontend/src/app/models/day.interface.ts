@@ -1,6 +1,6 @@
-import { Meal } from './meal.interface';
+import { Recipe } from './recipe';
 
 export interface Day {
   name?: string;
-  meals?: Meal[];
+  recipes?: Recipe[];
 }

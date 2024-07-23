@@ -1,8 +1,17 @@
-<h1>planning</h1>
+<div class="padding-05 row gap-1">
+  <h1 class="grow">planning</h1>
 
+  <app-add-to-list [ingredients]="this.list" />
+  <button class="icon full-center" (click)="deletePlanning()">
+    <img src="./assets/icons/trash.svg" alt="trash icon" class="smaller" />
+  </button>
+</div>
 <div *ngIf="planning" class="column gap-1 mb-1">
-  <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn">
-    <div>
+  <div
+    *ngFor="let day of planning.days; let i = index; trackBy: trackByFn"
+    class="padding-05"
+  >
+    <div class="mb-05">
       <app-day
         [name]="day.name || 'day ' + (i + 1)"
         (emitName)="saveName($event, i)"
@@ -11,23 +20,21 @@
     </div>
 
     <div
-      *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn"
-      class="row"
+      *ngFor="let recipe of day.recipes; let j = index; trackBy: trackByFn"
+      class="row bg-color-mid align-center m-side-1 padding-left mb-05 space-between"
     >
-      <p class="grow">{{ meal.recipeTitle }}</p>
+      <button class="grow no-bg" [routerLink]="['/recipe/' + recipe._id]">
+        {{ recipe.title }}
+      </button>
       <button class="mini no-bg full-center" (click)="removeRecipe(i, j)">
-        <img
-          src="./assets/icons/trash.svg"
-          alt="trash icon"
-          class="full-center"
-        />
+        x
       </button>
     </div>
-    <div *ngIf="day.meals?.length == 0">
+    <div *ngIf="day.recipes?.length == 0">
       <p class="color-text2 small-text">
         select a recipe to add to your planning
       </p>
     </div>
   </div>
-  <button class="text" (click)="addDay()">add day</button>
+  <button class="text no-bg" (click)="addDay()">add day</button>
 </div>

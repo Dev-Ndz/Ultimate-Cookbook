@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { Recipe } from '../../../models/recipe';
 import { Ingredient } from '../../../models/ingredient.interface';
 import { DialogModule } from 'primeng/dialog';
@@ -16,7 +16,7 @@ import { GroceryListService } from '../../../services/grocery-list.service';
 })
 export class AddToListComponent {
   visible: boolean = false;
-  @Input() recipe!: Recipe;
+  @Input() ingredients!: Ingredient[];
   selectedIngredients: Ingredient[] = [];
 
   constructor(private groceryListService: GroceryListService) {}
@@ -24,24 +24,21 @@ export class AddToListComponent {
   showDialog() {
     console.log('showDialog() starts...');
     this.visible = true;
-    this.recipe.ingredients = this.recipe.ingredients!.map(
-      (ingredient: Ingredient) => ({
-        ...ingredient,
-        isChecked: true,
-      })
-    );
-    console.log('Ingredients after reset:', this.recipe);
+    this.ingredients = this.ingredients!.map((ingredient: Ingredient) => ({
+      ...ingredient,
+      isChecked: true,
+    }));
   }
   closeDialog() {
     this.selectedIngredients = [];
     this.visible = false;
   }
   handleCheck(index: number, updatedIngredient: Ingredient) {
-    this.recipe.ingredients![index] = updatedIngredient;
-    console.log(this.recipe.ingredients![index]);
+    this.ingredients![index] = updatedIngredient;
+    console.log(this.ingredients![index]);
   }
   addToList() {
-    this.recipe.ingredients?.forEach((ingredient: Ingredient) => {
+    this.ingredients?.forEach((ingredient: Ingredient) => {
       if (ingredient.isChecked) {
         ingredient.isChecked = false;
         this.selectedIngredients.push(ingredient);
@@ -56,8 +53,18 @@ export class AddToListComponent {
   }
 
   ngOnInit() {
-    this.recipe.ingredients?.forEach(
+    this.ingredients?.forEach(
       (ingredient: Ingredient) => (ingredient.isChecked = true)
     );
+    console.log(this.ingredients);
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['ingredients']) {
+      // Perform any necessary actions when ingredients input changes
+      console.log(
+        'Ingredients have changed:',
+        changes['ingredients'].currentValue
+      );
+    }
   }
 }
