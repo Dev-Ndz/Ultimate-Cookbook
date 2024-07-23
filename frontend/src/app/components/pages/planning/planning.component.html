@@ -3,11 +3,24 @@
 <div *ngIf="planning">
   <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn">
     <div>
-      <app-day [name]="day.name || 'day ' + (i + 1)" (emitName)="saveName($event, i)"/>
+      <app-day
+        [name]="day.name || 'day ' + (i + 1)"
+        (emitName)="saveName($event, i)"
+      />
     </div>
 
-    <div *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn">
-      {{ meal.recipeTitle }}
+    <div
+      *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn"
+      class="row"
+    >
+      <p class="grow">{{ meal.recipeTitle }}</p>
+      <button class="mini no-bg full-center" (click)="removeRecipe(i, j)">
+        <img
+          src="./assets/icons/trash.svg"
+          alt="trash icon"
+          class="full-center"
+        />
+      </button>
     </div>
   </div>
   <button class="text" (click)="updatePlanning()">validate</button>

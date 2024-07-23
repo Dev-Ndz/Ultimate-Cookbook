@@ -13,21 +13,21 @@ import { MealComponent } from '../../meal/meal.component';
   styleUrl: './planning.component.scss',
 })
 export class PlanningComponent {
-  planning: Planning = this.planningService.planning || {
+  planning: Planning = {
     _id: '',
     days: [],
   };
   constructor(private planningService: PlanningService) {}
 
-  // getPlanning() {
-  //   this.planningService.getPlanning().subscribe({
-  //     next: (response: any) => {
-  //       this.planning = response;
-  //       console.log(response);
-  //     },
-  //     error: (err) => console.log(err),
-  //   });
-  // }
+  getPlanning() {
+    this.planningService.getPlanning().subscribe({
+      next: (response: any) => {
+        this.planning = response;
+        console.log(response);
+      },
+      error: (err) => console.log(err),
+    });
+  }
 
   updatePlanning() {
     if (this.planning) {
@@ -43,10 +43,14 @@ export class PlanningComponent {
     this.updatePlanning();
   }
 
+  removeRecipe(indexDay: number, indexMeal: number) {
+    this.planning.days[indexDay].meals?.splice(indexMeal, 1);
+  }
+
   trackByFn(index: any, item: any) {
     return index;
   }
-  // ngOnInit() {
-  //   this.getPlanning();
-  // }
+  ngOnInit() {
+    this.getPlanning();
+  }
 }
