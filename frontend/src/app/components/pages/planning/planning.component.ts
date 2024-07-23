@@ -5,11 +5,18 @@ import { CommonModule } from '@angular/common';
 import { DayComponent } from '../../day/day.component';
 import { MealComponent } from '../../meal/meal.component';
 import { RouterLink } from '@angular/router';
+import { AddToListComponent } from '../../buttons/add-to-list/add-to-list.component';
 
 @Component({
   selector: 'app-planning',
   standalone: true,
-  imports: [CommonModule, DayComponent, MealComponent, RouterLink],
+  imports: [
+    CommonModule,
+    DayComponent,
+    MealComponent,
+    RouterLink,
+    AddToListComponent,
+  ],
   templateUrl: './planning.component.html',
   styleUrl: './planning.component.scss',
 })
@@ -45,7 +52,7 @@ export class PlanningComponent {
   }
 
   removeRecipe(indexDay: number, indexMeal: number) {
-    this.planning.days[indexDay].meals?.splice(indexMeal, 1);
+    this.planning.days[indexDay].recipes?.splice(indexMeal, 1);
     this.updatePlanning();
   }
 
@@ -56,6 +63,11 @@ export class PlanningComponent {
 
   removeDay(index: number) {
     this.planning.days.splice(index, 1);
+    this.updatePlanning();
+  }
+
+  deletePlanning() {
+    this.planning.days.splice(0);
     this.updatePlanning();
   }
 

@@ -242,6 +242,9 @@ button {
     img {
       height: 2rem;
     }
+    img.smaller{
+      height: 1.5rem;
+    }
   }
   &.mini {
     border-radius: 1rem;
