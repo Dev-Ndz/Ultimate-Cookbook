@@ -1,11 +1,12 @@
 <h1>planning</h1>
 
-<div *ngIf="planning">
+<div *ngIf="planning" class="column gap-1 mb-1">
   <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn">
     <div>
       <app-day
         [name]="day.name || 'day ' + (i + 1)"
         (emitName)="saveName($event, i)"
+        (delete)="removeDay(i)"
       />
     </div>
 
@@ -22,6 +23,11 @@
         />
       </button>
     </div>
+    <div *ngIf="day.meals?.length == 0">
+      <p class="color-text2 small-text">
+        select a recipe to add to your planning
+      </p>
+    </div>
   </div>
-  <button class="text" (click)="updatePlanning()">validate</button>
+  <button class="text" (click)="addDay()">add day</button>
 </div>

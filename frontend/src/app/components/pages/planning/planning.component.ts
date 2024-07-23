@@ -45,6 +45,17 @@ export class PlanningComponent {
 
   removeRecipe(indexDay: number, indexMeal: number) {
     this.planning.days[indexDay].meals?.splice(indexMeal, 1);
+    this.updatePlanning();
+  }
+
+  addDay() {
+    this.planning.days.push({});
+    this.updatePlanning();
+  }
+
+  removeDay(index: number) {
+    this.planning.days.splice(index, 1);
+    this.updatePlanning();
   }
 
   trackByFn(index: any, item: any) {

@@ -1,2 +1,6 @@
-<app-new-recipe />
+<div class="padding-1 row">
+  <h1 class="grow">My Recipes</h1>
+  <button class="icon mini" [routerLink]="['/new-recipe']">+</button>
+</div>
+<!-- <app-new-recipe /> -->
 <app-recipe-card *ngFor="let recipe of recipes" [recipe]="recipe" />

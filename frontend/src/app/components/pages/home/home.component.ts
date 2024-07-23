@@ -9,7 +9,7 @@ import { NewRecipeComponent } from '../../buttons/new-recipe/new-recipe.componen
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RecipeCardComponent, CommonModule, NewRecipeComponent],
+  imports: [RecipeCardComponent, CommonModule, NewRecipeComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

@@ -84,6 +84,14 @@ li {
 .bg-color-mid {
   background-color: var(--bg-mid);
 }
+.color-text2 {
+  color: var(--bg-light);
+}
+
+// FONT SIZE
+.small-text {
+  font-size: 0.9rem;
+}
 
 .row {
   display: flex;

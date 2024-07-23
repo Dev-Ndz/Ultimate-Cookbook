@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class DayComponent {
   @Input() name!: string;
   @Output() emitName = new EventEmitter<string>();
+  @Output() delete = new EventEmitter();
   editMode: boolean = false;
   input?: string;
 
@@ -22,6 +23,10 @@ export class DayComponent {
       this.editMode = false;
     }
   }
+  deleteDay() {
+    this.delete.emit();
+  }
+
   exitEditMode() {
     this.editMode = false;
     this.input = '';
