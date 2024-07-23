@@ -11,18 +11,23 @@
 >
   <div class="padding-1 column gap-05">
     <h3>Select on which day do you want to add this recipe :</h3>
-    <div *ngIf="planning">
+    <div *ngIf="planning" class="column gap-1 mb-1">
       <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn">
         <div>
-          <button class="text" (click)="addToDay(i)">
-            {{ day.name || "day " + (i + 1) }}
+          <button class="no-bg">
+            <h2 (click)="addToDay(i)">{{ day.name || "day " + (i + 1) }}</h2>
           </button>
         </div>
 
-        <div *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn">
+        <div
+          class="color-text2"
+          *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn"
+        >
           {{ meal.recipeTitle }}
         </div>
       </div>
+    </div>
+    <div class="row gap-05">
       <button class="text" (click)="validate()">validate</button>
       <button class="text" (click)="closeDialog()">cancel</button>
     </div>
