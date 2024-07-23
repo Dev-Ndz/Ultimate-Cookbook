@@ -1,5 +1,9 @@
 <div class="full-center h100">
-  <form (submit)="login($event)" class="column gap-2 wrapper grow padding-1">
+  <form
+    #loginForm="ngForm"
+    (ngSubmit)="login($event)"
+    class="column gap-2 wrapper grow padding-1"
+  >
     <div class="column gap-05 full-center mb-2">
       <h1>Log in</h1>
     </div>
@@ -12,17 +16,44 @@
         name="email"
         placeholder="Email"
         [(ngModel)]="email"
+        #emailInput="ngModel"
+        required
+        email
       />
+      <div
+        *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+        class="error-message"
+      >
+        <small *ngIf="emailInput.errors?.['required']"
+          >Email is required.</small
+        >
+        <small *ngIf="emailInput.errors?.['email']"
+          >Invalid email address.</small
+        >
+      </div>
 
       <input
         type="password"
         name="password"
         placeholder="Password"
         [(ngModel)]="password"
+        #passwordInput="ngModel"
+        required
       />
+      <div
+        *ngIf="
+          passwordInput.invalid &&
+          (passwordInput.dirty || passwordInput.touched)
+        "
+        class="error-message"
+      >
+        <small *ngIf="passwordInput.errors?.['required']"
+          >Password is required.</small
+        >
+      </div>
     </div>
 
-    <button class="text">Login</button>
+    <button class="text" [disabled]="loginForm.invalid">Login</button>
     <p>No account yet ? go to <a routerLink="/register">register</a></p>
   </form>
 </div>
