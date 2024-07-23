@@ -1,8 +1,8 @@
 <h1>planning</h1>
 
-<div *ngIf="planning" class="column gap-1 mb-1">
-  <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn">
-    <div>
+<div *ngIf="planning" class="column gap-1 mb-1 ">
+  <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn" class="padding-05">
+    <div class="mb-05">
       <app-day
         [name]="day.name || 'day ' + (i + 1)"
         (emitName)="saveName($event, i)"
@@ -12,15 +12,11 @@
 
     <div
       *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn"
-      class="row"
+      class="row bg-color-mid align-center m-side-1 padding-left mb-05 space-between"
     >
       <p class="grow">{{ meal.recipeTitle }}</p>
       <button class="mini no-bg full-center" (click)="removeRecipe(i, j)">
-        <img
-          src="./assets/icons/trash.svg"
-          alt="trash icon"
-          class="full-center"
-        />
+        x
       </button>
     </div>
     <div *ngIf="day.meals?.length == 0">

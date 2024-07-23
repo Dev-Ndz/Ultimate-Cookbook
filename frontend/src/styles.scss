@@ -118,6 +118,9 @@ li {
 .padding-1 {
   padding: 1rem;
 }
+.padding-left {
+  padding: 0.25rem 0rem 0.25rem 0.5rem;
+}
 
 .mb-05 {
   margin-bottom: 0.5rem;
@@ -125,6 +128,11 @@ li {
 
 .mb-1 {
   margin-bottom: 1rem;
+}
+
+.m-side-1 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .gap-05 {
@@ -157,6 +165,10 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .hidden {
