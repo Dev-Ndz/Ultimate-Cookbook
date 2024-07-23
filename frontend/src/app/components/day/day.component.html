@@ -1,0 +1,31 @@
+<div *ngIf="!editMode" class="row">
+  <h2 class="grow">{{ this.name }}</h2>
+  <button class="mini no-bg" (click)="editMode = true">
+    <img src="./assets/icons/edit.svg" alt="edit icon" />
+  </button>
+  <button class="mini no-bg full-center" (click)="deleteDay()">
+    <img src="./assets/icons/trash.svg" alt="trash icon" class="full-center" />
+  </button>
+</div>
+
+<div *ngIf="editMode" class="row">
+  <input
+    type="text"
+    [(ngModel)]="input"
+    class="grow"
+    [placeholder]="this.name"
+  />
+  <div class="row">
+    <button class="mini no-bg" (click)="saveName()">
+      <img src="./assets/icons/check.svg" alt="save change icon" />
+    </button>
+    <button class="mini no-bg full-center" (click)="exitEditMode()">
+      <!-- <img
+        src="./assets/icons/trash.svg"
+        alt="trash icon"
+        class="full-center"
+      /> -->
+      x
+    </button>
+  </div>
+</div>

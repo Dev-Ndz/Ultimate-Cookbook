@@ -8,9 +8,14 @@ import {
   getRecipeById,
   updateRecipe,
 } from "./controllers/recipeController";
-import { addItems, getGroceryList, updateGroceryList } from "./controllers/groceryListController";
+import {
+  addItems,
+  getGroceryList,
+  updateGroceryList,
+} from "./controllers/groceryListController";
 import { bouncer, login, register } from "./controllers/authController";
 import { upload } from "./utils/storage";
+import { getPlanning, updatePlanning } from "./controllers/planningController";
 
 const app = express();
 
@@ -58,3 +63,6 @@ app.put("/recipe/:id", updateRecipe);
 app.get("/grocery-list", getGroceryList);
 app.post("/grocery-list", addItems);
 app.put("/grocery-list", updateGroceryList);
+
+app.get("/planning", getPlanning);
+app.put("/planning", updatePlanning);

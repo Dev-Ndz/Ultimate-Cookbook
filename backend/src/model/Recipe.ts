@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { ingredientSchema } from "./Ingredients";
-const recipeSchema = new Schema(
+export const recipeSchema = new Schema(
   {
     title: { type: String, required: true },
     author: { type: String, required: true },
