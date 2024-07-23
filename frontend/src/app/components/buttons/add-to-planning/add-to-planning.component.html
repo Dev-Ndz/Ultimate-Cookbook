@@ -1,4 +1,6 @@
-<button class="icon" (click)="showDialog()"><img src="./assets/icons/add to planning.svg" /></button>
+<button class="icon" (click)="showDialog()">
+  <img src="./assets/icons/add to planning.svg" />
+</button>
 
 <p-dialog
   [modal]="true"
@@ -9,15 +11,17 @@
 >
   <div class="padding-1 column gap-05">
     <h3>Select ingredients to add to the grocery list :</h3>
-    <app-ingredient
-      *ngFor="let ingredient of recipe.ingredients; let i = index"
-      [index]="i"
-      [ingredient]="ingredient"
-      [ViewOnly]="true"
-      [grayedIfChecked]="false"
-      (ingredientChange)="handleCheck(i, $event)"
-    />
+    <!-- <div *ngIf="planning">
+        <div *ngFor="let day of planning.days; let i = index; trackBy: trackByFn">
+          <div>
+            <app-day [name]="day.name || 'day ' + (i + 1)"/>
+          </div>
+      
+          <div *ngFor="let meal of day.meals; let j = index; trackBy: trackByFn">
+            {{ meal.recipeTitle }}
+          </div>
+        </div>
+        <button class="text" (click)="updatePlanning()">validate</button>
+      </div> -->
   </div>
-  <button class="text" (click)="closeDialog()">Cancel</button>
-  <button class="text" (click)="addToList()">Validate</button>
 </p-dialog>
