@@ -1,5 +1,10 @@
 <div class="padding-1">
-  <h1 class="mb-1">Grocery List</h1>
+  <div class="row mb-1 space-between">
+    <h1>Grocery List</h1>
+    <button class="icon full-center" (click)="deleteList()">
+      <img src="./assets/icons/trash.svg" alt="trash icon" class="smaller" />
+    </button>
+  </div>
 
   <div *ngIf="groceryList" class="column gap-1 mb-1">
     <app-ingredient

@@ -22,7 +22,6 @@ export class AddToListComponent {
   constructor(private groceryListService: GroceryListService) {}
 
   showDialog() {
-    console.log('showDialog() starts...');
     this.visible = true;
     this.ingredients = this.ingredients!.map((ingredient: Ingredient) => ({
       ...ingredient,
@@ -34,11 +33,13 @@ export class AddToListComponent {
     this.visible = false;
   }
   handleCheck(index: number, updatedIngredient: Ingredient) {
+    console.log('check detected');
     this.ingredients![index] = updatedIngredient;
-    console.log(this.ingredients![index]);
   }
   addToList() {
     this.ingredients?.forEach((ingredient: Ingredient) => {
+      console.log(ingredient);
+      console.log(ingredient.isChecked);
       if (ingredient.isChecked) {
         ingredient.isChecked = false;
         this.selectedIngredients.push(ingredient);
@@ -56,15 +57,14 @@ export class AddToListComponent {
     this.ingredients?.forEach(
       (ingredient: Ingredient) => (ingredient.isChecked = true)
     );
-    console.log(this.ingredients);
   }
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['ingredients']) {
-      // Perform any necessary actions when ingredients input changes
-      console.log(
-        'Ingredients have changed:',
-        changes['ingredients'].currentValue
-      );
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['ingredients']) {
+  //     // Perform any necessary actions when ingredients input changes
+  //     console.log(
+  //       'Ingredients have changed:',
+  //       changes['ingredients'].currentValue
+  //     );
+  //   }
+  // }
 }

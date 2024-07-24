@@ -40,15 +40,15 @@
         ? 'grayed'
         : ''
       : ingredient.isChecked
-        ? ''
-        : 'grayed'
+      ? ''
+      : 'grayed'
   "
 >
   <div class="checkbox">
     <input
       type="checkbox"
       [(ngModel)]="ingredient.isChecked"
-      (ngModelChange)="saveIngredient()"
+      (ngModelChange)="handleCheckboxChange()"
       [id]="'checkbox' + this.index"
     />
     <label [for]="'checkbox' + this.index"></label>

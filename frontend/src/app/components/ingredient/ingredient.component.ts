@@ -34,6 +34,11 @@ export class IngredientComponent {
     this.delete.emit();
   }
 
+  handleCheckboxChange() {
+    this.onIngredientChange();
+    this.saveIngredient();
+  }
+
   onIngredientChange() {
     console.log(this.ingredient);
     this.ingredientChange.emit(this.ingredient);

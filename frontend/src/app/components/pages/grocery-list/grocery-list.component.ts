@@ -59,6 +59,13 @@ export class GroceryListComponent {
     }
   }
 
+  deleteList() {
+    if (this.groceryList) {
+      this.groceryList.ingredients = [];
+    }
+    this.updateList();
+  }
+
   displayNewIngredient() {
     this.visibility = true;
   }
