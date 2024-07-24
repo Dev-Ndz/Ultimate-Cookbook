@@ -45,3 +45,14 @@ export const updateRecipe = async (req: Request, res: Response) => {
     return res.status(500).send({ error: "Server error : " + err });
   }
 };
+
+export const deleteRecipe = async (req: Request, res: Response) => {
+  const id = req.params.id;
+  try {
+    await Recipe.findByIdAndDelete(id);
+    res.send({ message: "recipe deleted" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ error: "Server error : " + err });
+  }
+};

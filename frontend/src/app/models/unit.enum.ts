@@ -5,4 +5,6 @@ export enum Unit {
   Centilier = 'cl',
   Liter = 'l',
   Piece = 'pc',
+  tableSpoon = 'tbs',
+  teaSpoon = 'ts',
 }

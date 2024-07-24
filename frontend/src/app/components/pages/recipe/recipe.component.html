@@ -15,6 +15,9 @@
       <button class="icon" [routerLink]="['/recipe/edit/' + recipe._id]">
         <img src="./assets/icons/edit.svg" alt="" />
       </button>
+      <button class="icon full-center" (click)="deleteRecipe()">
+        <img src="./assets/icons/trash.svg" alt="trash icon" class="smaller" />
+      </button>
     </div>
     <section class="padding-05 border-radius bg-color-mid mb-1">
       <h2 class="mb-05">Ingredients</h2>
@@ -29,8 +32,8 @@
       <h2 class="mb-05">Instructions</h2>
       <div *ngIf="recipe.content.length > 1">
         <ol>
-          <li *ngFor="let instruction of recipe.content">
-            {{ instruction }}
+          <li *ngFor="let instruction of recipe.content" class="mb-05">
+            <span>{{ instruction }}</span>
           </li>
         </ol>
       </div>

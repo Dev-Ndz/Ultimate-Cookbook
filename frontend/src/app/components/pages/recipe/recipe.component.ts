@@ -1,6 +1,6 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, SimpleChange, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Recipe } from '../../../models/recipe';
 import { Ingredient } from '../../../models/ingredient.interface';
 import { CommonModule } from '@angular/common';
@@ -31,7 +31,8 @@ export class RecipeComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private recipeService: RecipeService
+    private recipeService: RecipeService,
+    private router: Router
   ) {}
 
   getRecipe(id: string): void {
@@ -44,6 +45,17 @@ export class RecipeComponent {
         error: (error) => {
           console.log(error);
         },
+      });
+    }
+  }
+
+  deleteRecipe() {
+    if (this.recipe._id) {
+      this.recipeService.deleteRecipe(this.recipe._id).subscribe({
+        next: (response) => {
+          this.router.navigate(['']);
+        },
+        error: (err) => console.log(err),
       });
     }
   }

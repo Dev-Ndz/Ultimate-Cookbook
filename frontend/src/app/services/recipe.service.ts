@@ -27,6 +27,6 @@ export class RecipeService {
   }
 
   deleteRecipe(id: String) {
-    return this.http.delete(environment.apiUrl + id);
+    return this.http.delete(environment.apiUrl + '/recipe/' + id);
   }
 }
