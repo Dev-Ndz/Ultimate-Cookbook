@@ -69,6 +69,7 @@ const updateList = (
     let found = false;
     if (updatedList.length < 1) {
       updatedList.push(newIngredient);
+      found = true;
     } else {
       for (let ingredient of updatedList) {
         if (
