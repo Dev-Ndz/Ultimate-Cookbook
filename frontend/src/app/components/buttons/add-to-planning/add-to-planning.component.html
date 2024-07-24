@@ -21,7 +21,7 @@
 
         <div
           class="color-text2"
-          *ngFor="let meal of day.recipes; let j = index; trackBy: trackByFn"
+          *ngFor="let recipe of day.recipes; let j = index; trackBy: trackByFn"
         >
           {{ recipe.title }}
         </div>
