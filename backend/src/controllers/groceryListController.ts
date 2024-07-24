@@ -1,7 +1,7 @@
 import { GroceryList, IGroceryList } from "../model/GroceryList";
 import { IIngredient } from "../model/Ingredients";
 import { getGroceryListId } from "./householdController";
-import { Request, Response } from "express";
+import { Response } from "express";
 
 export const getGroceryList = async (req: any, res: Response) => {
   let id = await getGroceryListId(req.user.householdId);

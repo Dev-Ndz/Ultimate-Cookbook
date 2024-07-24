@@ -35,7 +35,17 @@ export const register = async (req: Request, res: Response) => {
 
   try {
     let newGroceryList: any = await GroceryList.create({ ingredients: [] });
-    let newPlanning: any = await Planning.create({ days: [] });
+    let newPlanning: any = await Planning.create({
+      days: [
+        { name: "Monday" },
+        { name: "Tuesday" },
+        { name: "Wednesday" },
+        { name: "Thursday" },
+        { name: "Friday" },
+        { name: "Saturday" },
+        { name: "Sunday" },
+      ],
+    });
     let newHousehold = await Household.create({
       name: newUser.name + "'s household",
       membersId: [newUser!._id],

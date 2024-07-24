@@ -79,6 +79,15 @@ export class PlanningComponent {
 
   deletePlanning() {
     this.planning.days.splice(0);
+    this.planning.days.push(
+      { name: 'Monday' },
+      { name: 'Tuesday' },
+      { name: 'Wednesday' },
+      { name: 'Thursday' },
+      { name: 'Friday' },
+      { name: 'Saturday' },
+      { name: 'Sunday' }
+    );
     this.updatePlanning();
   }
 
