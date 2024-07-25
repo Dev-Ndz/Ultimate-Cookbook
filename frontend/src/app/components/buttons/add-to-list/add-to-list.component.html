@@ -20,6 +20,9 @@
       (ingredientChange)="handleCheck(i, $event)"
     />
   </div>
-  <button class="text" (click)="closeDialog()">Cancel</button>
-  <button class="text" (click)="addToList()">Validate</button>
+  <div class="row space-between">
+    <button class="text no-bg" (click)="closeDialog()">Cancel</button>
+    <button class="text" (click)="addToList()">Confirm</button>
+  </div>
+
 </p-dialog>
