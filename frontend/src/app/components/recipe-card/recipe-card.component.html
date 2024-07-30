@@ -9,8 +9,8 @@
         {{ recipe.title }}
       </h2>
       <div class="row gap-1 full-center">
-        <app-add-to-list [ingredients]="recipe.ingredients!" />
-        <app-add-to-planning [recipe]="recipe" />
+        <app-add-to-list [ingredients]="recipe.ingredients!" [size]="'small'" />
+        <app-add-to-planning [recipe]="recipe" [size]="'small'" />
       </div>
     </div>
   </div>

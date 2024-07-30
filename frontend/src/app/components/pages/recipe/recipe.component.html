@@ -9,13 +9,26 @@
       <div class="arvo">{{ recipe.time }} min.</div>
     </div>
     <div class="mb-1">CATEGORY</div>
-    <div class="row space-between mb-1">
-      <app-add-to-list [ingredients]="recipeData.ingredients!" />
-      <app-add-to-planning [recipe]="recipeData" />
-      <button class="icon" [routerLink]="['/recipe/edit/' + recipe._id]">
+    <div class="row space-around mb-1">
+      <app-add-to-list
+        [ingredients]="recipeData.ingredients!"
+        [size]="canEdit ? 'small' : 'large'"
+      />
+
+      <app-add-to-planning
+        [recipe]="recipeData"
+        [size]="canEdit ? 'small' : 'large'"
+      />
+
+      <button
+        *ngIf="canEdit"
+        class="icon"
+        [routerLink]="['/recipe/edit/' + recipe._id]"
+      >
         <img src="./assets/icons/edit.svg" alt="" />
       </button>
-      <button class="icon full-center" (click)="deleteRecipe()">
+
+      <button *ngIf="canEdit" class="icon full-center" (click)="deleteRecipe()">
         <img src="./assets/icons/trash.svg" alt="trash icon" class="smaller" />
       </button>
     </div>

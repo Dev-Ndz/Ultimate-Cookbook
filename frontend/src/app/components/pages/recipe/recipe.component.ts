@@ -11,6 +11,8 @@ import { IngredientModel } from '../../../models/ingredient.model';
 import { RecipeService } from '../../../services/recipe.service';
 import { Unit } from '../../../models/unit.enum';
 import { NewRecipeComponent } from '../../buttons/new-recipe/new-recipe.component';
+import { UserService } from '../../../services/user.service';
+import { User } from '../../../models/user';
 
 @Component({
   selector: 'app-recipe',
@@ -28,11 +30,13 @@ export class RecipeComponent {
   recipe!: Recipe;
   id!: string;
   recipeData!: Recipe;
+  canEdit: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   getRecipe(id: string): void {
@@ -41,6 +45,8 @@ export class RecipeComponent {
         next: (recipe: any) => {
           this.recipe = new RecipeModel(recipe);
           this.recipeData = new RecipeModel(this.recipe);
+          console.log(this.recipe);
+          this.canEdit = this.checkIfAuthor();
         },
         error: (error) => {
           console.log(error);
@@ -57,6 +63,17 @@ export class RecipeComponent {
         },
         error: (err) => console.log(err),
       });
+    }
+  }
+
+  checkIfAuthor() {
+    let user: User = this.userService.getUser();
+    console.log('user id : ', user.id);
+    console.log('author : ', this.recipe.author);
+    if (user.id == this.recipe.author) {
+      return true;
+    } else {
+      return false;
     }
   }
 

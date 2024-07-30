@@ -1,4 +1,7 @@
-<button class="icon" (click)="showDialog()">
+<button
+  [ngClass]="{ icon: size == 'small', 'icon-large': size == 'large' }"
+  (click)="showDialog()"
+>
   <img src="./assets/icons/add to list.svg" />
 </button>
 
@@ -24,5 +27,4 @@
     <button class="text no-bg" (click)="closeDialog()">Cancel</button>
     <button class="text" (click)="addToList()">Confirm</button>
   </div>
-
 </p-dialog>

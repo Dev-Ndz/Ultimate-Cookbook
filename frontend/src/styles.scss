@@ -157,6 +157,10 @@ li {
   justify-content: space-between;
 }
 
+.space-around {
+  justify-content: space-around;
+}
+
 .align-center {
   align-items: center;
 }
@@ -242,7 +246,18 @@ button {
     img {
       height: 2rem;
     }
-    img.smaller{
+    img.smaller {
+      height: 1.5rem;
+    }
+  }
+  &.icon-large {
+    height: 3.5rem;
+    width: 8rem;
+
+    img {
+      height: 2.5rem;
+    }
+    img.smaller {
       height: 1.5rem;
     }
   }

@@ -1,4 +1,7 @@
-<button class="icon" (click)="showDialog()">
+<button
+  [ngClass]="{ icon: size == 'small', 'icon-large': size == 'large' }"
+  (click)="showDialog()"
+>
   <img src="./assets/icons/add to planning.svg" />
 </button>
 

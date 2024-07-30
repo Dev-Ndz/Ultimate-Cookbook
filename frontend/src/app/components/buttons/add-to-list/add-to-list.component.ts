@@ -17,6 +17,7 @@ import { GroceryListService } from '../../../services/grocery-list.service';
 export class AddToListComponent {
   visible: boolean = false;
   @Input() ingredients!: Ingredient[];
+  @Input() size!: string;
   selectedIngredients: Ingredient[] = [];
 
   constructor(private groceryListService: GroceryListService) {}

@@ -1,6 +1,7 @@
 import { Ingredient } from './ingredient.interface';
 import { IngredientModel } from './ingredient.model';
 import { Recipe } from './recipe';
+import { User } from './user';
 
 export class RecipeModel implements Recipe {
   _id?: string;
