@@ -14,7 +14,12 @@ import {
   getGroceryList,
   updateGroceryList,
 } from "./controllers/groceryListController";
-import { bouncer, login, register } from "./controllers/authController";
+import {
+  bouncer,
+  isAuthor,
+  login,
+  register,
+} from "./controllers/authController";
 import { upload } from "./utils/storage";
 import { getPlanning, updatePlanning } from "./controllers/planningController";
 
@@ -59,8 +64,8 @@ app.get("/grocery-list", getGroceryList);
 app.get("/recipe/:id", getRecipeById);
 app.get("/recipe", getRecipes);
 app.post("/recipe", addRecipe);
-app.put("/recipe/:id", updateRecipe);
-app.delete("/recipe/:id", deleteRecipe);
+app.put("/recipe/:id", isAuthor, updateRecipe);
+app.delete("/recipe/:id", isAuthor, deleteRecipe);
 
 app.get("/grocery-list", getGroceryList);
 app.post("/grocery-list", addItems);

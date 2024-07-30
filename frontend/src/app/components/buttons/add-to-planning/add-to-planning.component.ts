@@ -16,6 +16,7 @@ import { Planning } from '../../../models/planning.interface';
 export class AddToPlanningComponent {
   visible: boolean = false;
   @Input() recipe!: Recipe;
+  @Input() size!: string;
 
   planning: Planning = {
     _id: '',

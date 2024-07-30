@@ -8,7 +8,7 @@ export const getRecipes = async (req: Request, res: Response) => {
 
 export const addRecipe = async (req: any, res: Response) => {
   let recipeInfo = req.body;
-  recipeInfo.author = req.user.name;
+  recipeInfo.author = req.user._id;
 
   console.log(recipeInfo);
   let recipe = new Recipe(recipeInfo);
@@ -32,7 +32,7 @@ export const getRecipeById = async (req: Request, res: Response) => {
   }
 };
 
-export const updateRecipe = async (req: Request, res: Response) => {
+export const updateRecipe = async (req: any, res: Response) => {
   const id = req.params.id;
   const recipe = req.body;
   console.log("update Recipe :", id, recipe);
@@ -48,6 +48,11 @@ export const updateRecipe = async (req: Request, res: Response) => {
 
 export const deleteRecipe = async (req: Request, res: Response) => {
   const id = req.params.id;
+  // if (recipe.author != req.user._id) {
+  //   return res
+  //     .status(401)
+  //     .send({ message: "Only the author can modify a recipe" });
+  // }
   try {
     await Recipe.findByIdAndDelete(id);
     res.send({ message: "recipe deleted" });
