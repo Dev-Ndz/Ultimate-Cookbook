@@ -133,8 +133,10 @@ export const isAuthor = async (req: any, res: Response, next: NextFunction) => {
     if (!recipe) {
       return res.status(404).send({ message: "Recipe not found" });
     }
-
-    if (recipe.author.toString() !== req.user._id) {
+    console.log(recipe.author);
+    console.log(req.user._id);
+    console.log(recipe.author != req.user._id);
+    if (recipe.author != req.user._id) {
       return res
         .status(401)
         .send({ message: "Only the author can modify a recipe" });

@@ -35,11 +35,6 @@ export const getRecipeById = async (req: Request, res: Response) => {
 export const updateRecipe = async (req: any, res: Response) => {
   const id = req.params.id;
   const recipe = req.body;
-  if (recipe.author != req.user._id) {
-    return res
-      .status(401)
-      .send({ message: "Only the author can modify a recipe" });
-  }
   console.log("update Recipe :", id, recipe);
   try {
     await Recipe.findByIdAndUpdate(id, recipe);
