@@ -6,7 +6,7 @@ import { JWT_SECRET } from "../config/config";
 import { GroceryList } from "../model/GroceryList";
 import { Planning } from "../model/Planning";
 import { Household } from "../model/Household";
-import { AuthRequest } from "../model/types";
+import { Recipe } from "../model/Recipe";
 
 export const register = async (req: Request, res: Response) => {
   let newUser;
@@ -122,4 +122,28 @@ export const bouncer = async (req: any, res: Response, next: NextFunction) => {
   }
 
   return res.status(403).send("Invalid token");
+};
+
+export const isAuthor = async (req: any, res: Response, next: NextFunction) => {
+  const recipeId = req.params.id;
+
+  try {
+    const recipe = await Recipe.findById(recipeId);
+
+    if (!recipe) {
+      return res.status(404).send({ message: "Recipe not found" });
+    }
+
+    if (recipe.author.toString() !== req.user._id) {
+      return res
+        .status(401)
+        .send({ message: "Only the author can modify a recipe" });
+    }
+
+    // If the user is the author, proceed to the next middleware
+    next();
+  } catch (err) {
+    console.error("Server error:", err);
+    return res.status(500).send({ error: "Server error: " + err });
+  }
 };
